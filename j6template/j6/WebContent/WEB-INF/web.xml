@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<context-param>
+		<param-name>facelets.REFRESH_PERIOD</param-name>
+		<param-value>1</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	 <context-param> 
+        <param-name>org.ajax4jsf.xmlparser.ORDER</param-name> 
+        <param-value>NONE</param-value> 
+    </context-param> 
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>
+			/WEB-INF/facelets/tomahawk.taglib.xml;
+			/WEB-INF/facelets/acegi.taglib.xml;
+			/WEB-INF/facelets/tomahawk_sandbox.taglib.xml;
+			/WEB-INF/facelets/j6.taglib.xml
+			
+		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>
+            /WEB-INF/faces/apps-faces-config.xml,
+   
+            /WEB-INF/faces/user-faces-config.xml,
+          
+        </param-value>
+	</context-param>
+ 
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>com.j6.loginUsername</param-name>
+		<param-value>surewin</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.j6.loginPassword</param-name>
+		<param-value>password</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
+		<param-value>com.j6.framework.jsf.application.JViewHandler</param-value>
+	</context-param><!-- com.sun.facelets.FaceletViewHandler -->
+	
+	<context-param>
+		<param-name>org.ajax4jsf.COMPRESS_SCRIPT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.ajax4jsf.SKIN</param-name>
+		<param-value>blueSky</param-value>
+	</context-param>
+	<context-param>
+		<description>
+			This parameter tells MyFaces if javascript code should be
+			allowed in the rendered HTML output. If javascript is
+			allowed, command_link anchors will have javascript code that
+			submits the corresponding form. If javascript is not
+			allowed, the state saving info and nested parameters will be
+			added as url parameters. Default: "true"
+		</description>
+		<param-name>org.apache.myfaces.ALLOW_JAVASCRIPT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description>
+			If true, rendered HTML code will be formatted, so that it is
+			"human readable". i.e. additional line separators and
+			whitespace will be written, that do not influence the HTML
+			code. Default: "true"
+		</description>
+		<param-name>org.apache.myfaces.PRETTY_HTML</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description>
+			This parameter tells MyFaces if javascript code should be
+			allowed in the rendered HTML output. If javascript is
+			allowed, command_link anchors will have javascript code that
+			submits the corresponding form. If javascript is not
+			allowed, the state saving info and nested parameters will be
+			added as url parameters.
+
+			Setting this param to true should be combined with
+			STATE_SAVING_METHOD "server" for best results.
+
+			This is an EXPERIMENTAL feature. You also have to enable the
+			detector filter/filter mapping below to get JavaScript
+			detection working. Default: "false"
+		</description>
+		<param-name>org.apache.myfaces.DETECT_JAVASCRIPT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<description>
+			If true, a javascript function will be rendered that is able
+			to restore the former vertical scroll on every request.
+			Convenient feature if you have pages with long lists and you
+			do not want the browser page to always jump to the top if
+			you trigger a link or button action that stays on the same
+			page. Default: "false"
+		</description>
+		<param-name>org.apache.myfaces.AUTO_SCROLL</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	 
+	<filter>
+		<description>
+			Set the size limit for uploaded files. Format: 10 - 10 bytes
+			10k - 10 KB 10m - 10 MB 1g - 1 GB
+		</description>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<filter-class>
+			org.apache.myfaces.component.html.util.ExtensionsFilter
+		</filter-class>
+		<init-param>
+			<param-name>maxFileSize</param-name>
+			<param-value>20m</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>messageFilter</filter-name>
+		<filter-class>
+			com.j6.framework.user.MessageFilter
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>Acegi Filter Chain Proxy</filter-name>
+		<filter-class>
+			org.acegisecurity.util.FilterToBeanProxy
+		</filter-class>
+		<init-param>
+			<param-name>targetClass</param-name>
+			<param-value>
+				org.acegisecurity.util.FilterChainProxy
+			</param-value>
+		</init-param>
+	</filter>
+	<!-- FILTER FOR PROCESSING INTERNAL QUIPUKIT RESOURCES -->
+ 
+	<!-- This filter must after acegi -->
+	<filter>
+		<display-name>Ajax4jsf Filter</display-name>
+		<filter-name>ajax4jsf</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+ <!--		<init-param>
+			<param-name>forceparser</param-name>
+			<param-value>false</param-value>
+		</init-param> -->
+    </filter>
+	<filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Acegi Filter Chain Proxy</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>messageFilter</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+		<!--dispatcher>REQUEST</dispatcher>
+			<dispatcher>FORWARD</dispatcher-->
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>ajax4jsf</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+	</filter-mapping>
+	 
+	<filter-mapping>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<url-pattern>/faces/*</url-pattern>
+	</filter-mapping>
+	<!--
+		<filter-mapping>
+		<filter-name>RequestHandled</filter-name>
+		<url-pattern>/faces/*</url-pattern>
+		</filter-mapping>    
+		
+		If you use Tomcat 5.0.19, do not forget to add ConfigureListener to web.xml. JSF Application does not work without it. 
+		
+		<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+		</listener>
+		
+		Listener, that does all the startup work (configuration, init). -->
+	<listener>
+		<listener-class>
+			org.apache.myfaces.webapp.StartupServletContextListener
+		</listener-class>
+	</listener>
+	<listener>
+      <listener-class>org.apache.axis.transport.http.AxisHTTPSessionListener</listener-class>
+	</listener>
+	<listener>
+		<!-- to make the spring scope work -->
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.j6.framework.application.RequestContextListener
+		</listener-class>
+	</listener>
+	<!--
+		<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		</listener>
+	-->
+	<listener>
+		<listener-class>
+			com.j6.framework.application.JContextLoaderListener
+		</listener-class>
+	</listener>
+	
+   <servlet>
+      <servlet-name>Axis</servlet-name>
+      <servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+   </servlet>
+
+   <servlet>
+      <servlet-name>AdminServlet</servlet-name>
+      <servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class>
+      <load-on-startup>100</load-on-startup>
+   </servlet>
+
+   <servlet-mapping>
+      <servlet-name>Axis</servlet-name>
+      <url-pattern>*.jws</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
+      <servlet-name>Axis</servlet-name>
+      <url-pattern>/webservice/*</url-pattern>
+   </servlet-mapping>
+   	
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	 
+	<servlet>
+		<servlet-name>app</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>app</servlet-name>
+		<url-pattern>*.srv</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+	</welcome-file-list>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+</web-app>
