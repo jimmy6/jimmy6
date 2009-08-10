@@ -1,0 +1,58 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox" 
+    xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+    xmlns:pvs="http://www.j6.com/component">
+    
+<t:stylesheet path="/css/style.css" />	
+
+<f:view>
+<!-- 
+	<f:loadBundle basename="resource.bundle.messages" var="msg" />
+ -->
+	<h:form id="form" >
+		<h:panelGrid columns="1" align="center">
+		<br/><br/><br/>
+		
+		<ui:include src="../templates/messages.xhtml" />
+		
+		<h:panelGrid styleClass="login" columns="2" cellpadding="3" width="200" style="border: medium double #333333">				
+			 
+			<br/>				
+			<!-- pvs:labelInput provide easy way to create label and inputText with ajax validation feature
+				backingBeanStr is same with the backingBean. It just does not contain the EL symbols.
+				required - default to false.-->
+		 	<pvs:labelInput id="username" backingBean="#{loginBean.username}" 
+		 		backingBeanStr="loginBean.username" label="User ID" required="true"/>  
+		 	
+		 	<h:panelGroup>
+		 	<!-- the password did not use pvs:labelInput because t:inputSecret. also to prove it also work 
+		 	without pvs:labelInput -->
+
+				<h:outputLabel for="pwd" value="Password" />
+				<h:outputText value="*" styleClass="standardTextMandatory" />
+			</h:panelGroup>
+			<h:panelGroup>
+				<h:inputSecret id="pwd" value="#{loginBean.password}" required="true">
+					<f:validator validatorId="annotation" />
+					<a4j:support reRender="pwddiv" event="onblur" />
+				</h:inputSecret>
+				<t:div id="pwddiv">
+					<h:message id="pwdmsg" for="pwd" errorClass="error" fatalClass="error" />
+				</t:div>
+			</h:panelGroup>
+			<!-- end password -->
+			
+			<br/><br/>
+			<h:commandButton value="Login" type="submit"  action="#{loginBean.login}"/>
+			
+		</h:panelGrid>	
+	</h:panelGrid>
+
+	</h:form>
+	</f:view>
+
+</html>

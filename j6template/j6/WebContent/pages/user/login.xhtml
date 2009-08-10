@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox" 
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:q="http://teamdev.com/quipukit">
+<head>
+    <title>::...Jimmy6 Template...::</title>
+    <link rel="stylesheet" type="text/css" href="#{globalEnv.cssPath}/fonts.css"/>
+    <t:stylesheet path="/css/style.css" />
+    <style type="text/css">
+        <!--
+        body {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+        }
+        -->
+    </style>
+</head>
+<body>
+<h:form id="form">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td colspan="3">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                       background="#{globalEnv.imagePath}/banner/ban_bg.gif">
+                    <tr>
+                        <td><img src="#{globalEnv.imagePath}/banner/amms_logo.gif" width="187" height="42"/></td>
+                        <td valign="top">
+                            <div align="right">
+                                <span class="text2"><br/></span><span class="title2"></span>
+                            </div>
+                        </td>
+                        <td width="326" align="right">
+                            <img src="#{globalEnv.imagePath}/banner/ban_img1.gif" width="326" height="42"/>
+                        </td>
+                        <td width="224" align="right">
+                            <img src="#{globalEnv.imagePath}/banner/ban_img2.gif" width="240" height="42"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <br/><br/><br/><br/>
+            </td>
+        </tr>
+        <tr>
+            <td width="261"></td>
+            <td width="511"><ui:include src="../templates/messages.xhtml" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td width="261"></td>
+            <td width="511" height="342" background="#{globalEnv.imagePath}/login/loginbg.gif"
+                style="background-repeat:no-repeat">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="35%" class="menutitle">
+                            <div align="right">User ID :</div>
+                        </td>
+                        <td width="4%"></td>
+                        <td width="61%">
+                            <h:inputText id="username" value="#{loginBean.username}" required="true" size="10">
+                                <f:validator validatorId="annotation"/>
+                                <a4j:support reRender="usernamediv" event="onblur"/>
+                            </h:inputText>
+                            <t:div id="usernamediv">
+                                <h:message id="usernamemsg" for="username" errorClass="error" fatalClass="error"/>
+                            </t:div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="menutitle">
+                            <div align="right">Password :</div>
+                        </td>
+                        <td></td>
+                        <td>
+                            <h:inputSecret id="pwd" value="#{loginBean.password}" required="true" size="10">
+                                <f:validator validatorId="annotation"/>
+                                <a4j:support reRender="pwddiv" event="onblur"/>
+                            </h:inputSecret>
+                            <t:div id="pwddiv">
+                                <h:message id="pwdmsg" for="pwd" errorClass="error" fatalClass="error"/>
+                            </t:div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><br/></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <h:commandButton styleClass="button" value="Login" action="#{loginBean.login}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><br/></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><br/></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+            <td width="220"></td>
+        </tr>
+    </table>
+</h:form>
+</body>
+</html>
