@@ -1,0 +1,7 @@
+<sqls>
+
+	<sql id="framework.offsetSql" >
+		{0} limit {1} offset {2}
+	</sql>
+ 
+</sqls>

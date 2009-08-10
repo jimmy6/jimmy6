@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+    <!--	 Just for junit testing and build.xml->exportSchema purpose, will be remove when deploy  -->
+    	<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/j6</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property> 
+        <property name="hibernate.show_sql">true</property>
+       <!--
+        <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+        <property name="hibernate.connection.username">j6</property>
+        <property name="hibernate.connection.password">j6</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.1.208:1521:orcl</property>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property> 
+        <property name="hibernate.show_sql">true</property> 
+         -->
+        <mapping class="com.j6.framework.user.vo.User" />         
+		<mapping class="com.j6.framework.user.vo.UserRole" />
+		<mapping class="com.j6.framework.user.vo.RoleActivity" />
+		
+ <!--
+		<mapping class="com.j6.amms.master.vo.Craft" />         
+		<mapping class="com.j6.amms.master.vo.WorkorderType" />
+		<mapping class="com.j6.amms.master.vo.ServiceContractArchive" />
+		<mapping class="com.j6.amms.master.vo.ServiceContract" />
+		<mapping class="com.j6.amms.master.vo.ServiceArchive" />
+		<mapping class="com.j6.amms.master.vo.Service" />
+		<mapping class="com.j6.amms.master.vo.Section" />
+		<mapping class="com.j6.amms.master.vo.Problem" />
+		<mapping class="com.j6.amms.master.vo.MeterUnit" />
+		<mapping class="com.j6.amms.master.vo.MeterType" />
+		<mapping class="com.j6.amms.master.vo.Location" />
+		<mapping class="com.j6.amms.master.vo.GlAccount" />
+		<mapping class="com.j6.amms.master.vo.FailureType" />
+		<mapping class="com.j6.amms.master.vo.Failure" />
+		<mapping class="com.j6.amms.master.vo.EquipType" />
+		<mapping class="com.j6.amms.master.vo.EquipMeterReading" />
+		<mapping class="com.j6.amms.master.vo.EquipMeter" />
+		<mapping class="com.j6.amms.master.vo.EquipBrand" />
+		<mapping class="com.j6.amms.master.vo.Equip" />
+		<mapping class="com.j6.amms.master.vo.EmpGroupDetail" />
+		<mapping class="com.j6.amms.master.vo.EmpGroup" />
+		<mapping class="com.j6.amms.master.vo.Emp" />
+		<mapping class="com.j6.amms.master.vo.DocumentCode" />
+		<mapping class="com.j6.amms.master.vo.Dept" />
+		<mapping class="com.j6.amms.master.vo.Currency" />
+		<mapping class="com.j6.amms.master.vo.Company" />
+		<mapping class="com.j6.amms.master.srn.vo.SrnDetail" />
+		<mapping class="com.j6.amms.master.srn.vo.Srn" />
+		<mapping class="com.j6.amms.maintenance.wo.vo.WoStatus" />
+		<mapping class="com.j6.amms.maintenance.wo.vo.WorkorderStatusChange" />
+		<mapping class="com.j6.amms.maintenance.wo.vo.WorkorderService" />
+		<mapping class="com.j6.amms.maintenance.wo.vo.WorkorderOp" />
+		<mapping class="com.j6.amms.maintenance.wo.vo.WorkorderLabor" />
+		<mapping class="com.j6.amms.maintenance.wo.vo.WorkorderItem" />
+		<mapping class="com.j6.amms.maintenance.wo.vo.WorkorderEquip" />
+		<mapping class="com.j6.amms.maintenance.wo.vo.Workorder" />
+		<mapping class="com.j6.amms.maintenance.pm.vo.TimeFreqUnit" />
+		<mapping class="com.j6.amms.maintenance.pm.vo.PmEquip" />
+		<mapping class="com.j6.amms.maintenance.pm.vo.Pm" />
+		<mapping class="com.j6.amms.maintenance.pm.vo.FrequencyType" />
+		<mapping class="com.j6.amms.maintenance.jobplan.vo.JobPlanService" />
+		<mapping class="com.j6.amms.maintenance.jobplan.vo.JobPlanOp" />
+		<mapping class="com.j6.amms.maintenance.jobplan.vo.JobPlanLabor" />
+		<mapping class="com.j6.amms.maintenance.jobplan.vo.JobPlanItem" />
+		<mapping class="com.j6.amms.maintenance.jobplan.vo.JobPlan" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkTransferDetail" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkTransfer" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkTakeMaster" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkTakeDetail" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkTake" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkReorderDetail" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkReorder" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkReceiveDetail" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkReceive" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkAdjustType" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkAdjustRemark" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkAdjustDetail" />
+		<mapping class="com.j6.amms.inventory.operation.vo.StkAdjust" />
+		<mapping class="com.j6.amms.inventory.mrn.vo.MrnStatusChange" />
+		<mapping class="com.j6.amms.inventory.mrn.vo.MrnReturnDetail" />
+		<mapping class="com.j6.amms.inventory.mrn.vo.MrnReturn" />
+		<mapping class="com.j6.amms.inventory.mrn.vo.MrnIssueDetail" />
+		<mapping class="com.j6.amms.inventory.mrn.vo.MrnIssue" />
+		<mapping class="com.j6.amms.inventory.mrn.vo.MrnDetail" />
+		<mapping class="com.j6.amms.inventory.mrn.vo.MrnChangeLog" />
+		<mapping class="com.j6.amms.inventory.mrn.vo.Mrn" />
+		<mapping class="com.j6.amms.inventory.master.vo.Store" />
+		<mapping class="com.j6.amms.inventory.master.vo.InvTrx" />
+		<mapping class="com.j6.amms.inventory.master.vo.InventoryDefault" />
+		<mapping class="com.j6.amms.inventory.master.vo.Inventory" />
+		<mapping class="com.j6.amms.catalog.vo.Uom" />
+		<mapping class="com.j6.amms.catalog.vo.ProductCategory" />
+		<mapping class="com.j6.amms.catalog.vo.Product" />
+		<mapping class="com.j6.amms.catalog.vo.ItemType" />
+		<mapping class="com.j6.amms.catalog.vo.ItemSupplier" />
+		<mapping class="com.j6.amms.catalog.vo.ItemPrice" />
+		<mapping class="com.j6.amms.catalog.vo.Item" />
+		<mapping class="com.j6.amms.catalog.vo.Brand" />
+-->
+    </session-factory>
+</hibernate-configuration>

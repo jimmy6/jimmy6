@@ -1,0 +1,7 @@
+<sqls>
+
+	<sql id="framework.offsetSql" >
+		select * from ( select rownum as rownumber,q.* from ( {0} )q ) where rownumber between {1} and {0}
+	</sql>
+ 
+</sqls>

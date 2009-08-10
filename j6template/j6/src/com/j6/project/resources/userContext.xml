@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<!-- =========================== Manager =========================== -->
+	<bean id="userManager" class="com.j6.amms.user.manager.UserManagerImpl">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<!-- put for junit testing because this is in web security setting 		-->
+	<bean id="securityManager" class="com.j6.amms.user.manager.SecurityManagerImpl"></bean>
+<!-- <bean id="loginBean" class="com.j6.framework.user.controller.managedbean.LoginBean" scope="request"></bean> -->	
+
+	<!-- =========================== Dao =========================== -->
+	<bean id="userDao" class="com.j6.amms.user.dao.oracle.UserSqlDaoImpl" autowire="byName" />
+	
+<!-- 
+	<bean id="userRoleDao" class="com.j6.framework.user.dao.hibernate.UserRoleDaoImpl">
+		<property name="genericDao" ref="genericDao" />
+	</bean>
+ -->
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="FM_USER" name="com.foremobile.gateway.usermgmt.vo.User" lazy="false">
+    <id type="string" column="app_id" length="32" name="appId">
+      <generator class="uuid.hex"/>
+    </id>
+    <timestamp column="modified_date" unsaved-value="undefined" access="property" name="modifiedDate"/>
+    <property name="email" not-null="true" length="50" type="string" column="email"/>
+    <property name="name" not-null="true" length="50" type="string" column="name"/>
+  	<property name="enabled" not-null="true" type="boolean" column="enabled"/>    
+    <property name="password" not-null="true" length="32" type="string" column="password"/>
+    <property name="username" not-null="true" length="50" type="string" column="username" unique="true"/>
+    <set table="FM_USER_IN_ROLE" lazy="true" inverse="false" cascade="none" name="userRoles">
+      <key column="fk_user" />
+      <many-to-many column="fk_user_role" class="com.foremobile.gateway.usermgmt.vo.UserRole" />
+    </set>
+    <property name="createdDate" type="timestamp" column="created_date"/>
+    <property name="createdBy" length="50" type="string" column="created_by"/>
+    <property name="modifiedBy" length="50" type="string" column="modified_by"/>
+  </class>
+</hibernate-mapping>

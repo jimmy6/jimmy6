@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!-- ======================== FILTER CHAIN ======================= -->
+
+	<!--  "channelProcessingFilter" must be the first filter  -->
+	<bean id="filterChainProxy"
+		class="org.acegisecurity.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/**=httpSessionContextIntegrationFilter,securityContextHolderAwareRequestFilter,exceptionTranslationFilter,filterSecurityInterceptor
+			</value>
+			<!-- Put channelProcessingFilter before securityContextHolderAwareRequestFilter to turn on SSL switching -->
+            <!-- It's off by default b/c Canoo WebTest doesn't support SSL out-of-the-box -->
+			
+		</property>
+	</bean>
+<!-- 	
+    <bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="defaultTargetUrl" value="/"/>
+        <property name="authenticationFailureUrl" value="/login.jsp?"/>
+    </bean>
+ -->
+	<!-- ======================== AUTHENTICATION ======================= -->
+
+	<!-- Force user to have ROLE_?? inorder to view other pages
+	<bean id="securityEnforcementFilter"
+		class="org.acegisecurity.intercept.web.SecurityEnforcementFilter">
+		<property name="filterSecurityInterceptor">
+			<ref bean="filterSecurityInterceptor" />
+		</property>
+		<property name="authenticationEntryPoint">
+			<ref bean="authenticationEntryPoint" />
+		</property>
+	</bean> -->
+	
+	<!-- for jsfacegi work -->
+    <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
+
+	<bean id="filterSecurityInterceptor"
+		class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+		  
+		<property name="authenticationManager">
+			<ref bean="authenticationManager" />
+		</property>
+		
+		<property name="accessDecisionManager">
+			<ref bean="accessDecisionManager" />
+		</property>
+		<!-- 	\A/pages/templates/.*\Z=ROLE_USER,ACT_USERADM		-->
+		<property name="objectDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				\A/pages/user/admin/.*\Z=ACT_USERADM
+				\A/pages/user/personal/.*\Z=ROLE_USER
+
+			</value>
+		</property>
+	</bean>
+	<bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint">
+            <bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+                <property name="loginFormUrl" value="/pages/user/login.jsf"/>
+                <property name="forceHttps" value="false"/>
+            </bean>
+        </property>
+    </bean>
+
+	<!-- For ContextHolder to manage/store Authentication object. If not, you can not use <authz:... -->
+	<bean id="httpSessionContextIntegrationFilter"
+		class="org.acegisecurity.context.HttpSessionContextIntegrationFilter">
+	</bean>
+
+	<!-- ======================== ChannelProcessingFilter ======================= -->
+	
+	<!-- A channel-processing filter relies on a channel channelDecisionManager to decide
+	whether to switch to/from a secure channel/https. If a switch is necessary, channelProcessors
+	makes the switch. -->
+	<bean id="channelProcessingFilter"
+		class="org.acegisecurity.securechannel.ChannelProcessingFilter">
+		<property name="filterInvocationDefinitionSource">
+			<!-- https/REQUIRES_SECURE_CHANNEL still does not work -->
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				\A/pages/login.jsf\Z=REQUIRES_INSECURE_CHANNEL 
+				\A/paymentgateway/.*\Z=REQUIRES_SECURE_CHANNEL
+				\A/admin/mastersetup/.*\Z=REQUIRES_SECURE_CHANNEL
+				\A.*\Z=REQUIRES_INSECURE_CHANNEL
+				
+			</value>
+		</property>
+		<property name="channelDecisionManager">
+			<ref bean="channelDecisionManager" />
+		</property>
+	</bean>
+
+	<bean id="channelDecisionManager"
+		class="org.acegisecurity.securechannel.ChannelDecisionManagerImpl">
+		<property name="channelProcessors">
+			<list>
+				<ref bean="secureChannelProcessor"/>
+				<ref bean="insecureChannelProcessor"/>
+			</list>
+		</property>
+	</bean>
+	
+
+	<bean id="secureChannelProcessor" class="org.acegisecurity.securechannel.SecureChannelProcessor">
+	</bean>
+
+	<bean id="insecureChannelProcessor" class="org.acegisecurity.securechannel.InsecureChannelProcessor">	
+	</bean>
+	<!-- 
+	
+		Override default mapping of 80-443 & 8080-8443,
+		customized to 8080-8089 instead
+	 
+	<bean id="portMapper" class="org.acegisecurity.util.PortMapperImpl">
+	<property name="portMappings">
+     <map>
+       <entry key="80"><value>443</value></entry>
+       <entry key="8080"><value>8089</value></entry>
+     </map>
+   </property>
+	</bean>-->
+
+	<!-- ======================== AccessDecisionManager ======================= -->
+
+	<bean id="accessDecisionManager"
+		class="org.acegisecurity.vote.AffirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<ref bean="actVoter" />
+				<ref bean="roleVoter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="actVoter" class="org.acegisecurity.vote.RoleVoter">
+		<property name="rolePrefix">
+			<value>ACT_</value><!-- default prefix = ROLE_ -->
+		</property>
+	</bean>
+	<bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter">
+		<property name="rolePrefix">
+			<value>ROLE_</value><!-- default prefix = ROLE_ -->
+		</property>
+	</bean>
+	
+	<!-- Acegi Setting -->
+	<bean id = "authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+		<property name = "providers">
+			<list>
+				<ref bean ="daoAuthenticationProvider"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id = "daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+		<property name = "userDetailsService">
+			<ref bean="userDetailsServiceImpl"/>
+		</property>	
+	</bean> 
+	
+	<bean id="userDetailsServiceImpl" class="com.privasia.framework.user.dao.hibernate.AuthenticationDaoImpl">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	
+	<bean id="securityManager" class="com.privasia.framework.user.manager.SecurityManagerImpl">
+ 		<property name="authenticationManager" ref="authenticationManager"/> 	
+	</bean>
+	
+</beans>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<import resource="scheduler.xml" />
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:com/j6/project/resources/appConfig.properties</value>
+			</list>
+		</property>
+		<property name="systemPropertiesModeName">
+			<value>SYSTEM_PROPERTIES_MODE_OVERRIDE</value>
+		</property>
+	</bean>
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>resource.bundle.messages</value>
+				<value>com.j6.project.resources.bizConfig</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="loggerThrowsAdvice" class="com.j6.framework.spring.aop.LoggerThrowsAdvice">
+		<property name="exceptionsNotToLog">
+			<list>
+				<value>com.j6.framework.exception.ValidatorException</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="performanceAroundAdvice" class="com.j6.framework.spring.aop.PerformanceAroundAdvice" />
+<!-- 
+	<bean id="backingBeanInterceptor" class="com.j6.framework.spring.aop.BackingBeanInterceptor">
+		<property name="otherExceptionFormat" value="Transaction Error. Please try again or contact administrator." />
+		<property name="exceptionsToUi" value="com.j6.framework.exception.ValidatorException" />
+
+	</bean>
+	
+		<bean id="backingBeanInterceptorProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames" value="*Bean"/>
+		<property name="interceptorNames" value="backingBeanInterceptor"/>
+		</bean>
+	-->
+	<!-- BeanNameAutoProxyCreator 
+	<bean id="logAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<value>performanceAroundAdvice</value>
+		</property>
+		
+		<property name="beanNames">
+			<list>
+                <idref bean="companyManager" />
+                <idref bean="equipBrandManager" />
+                <idref bean="equipManager" />
+                <idref bean="itemManager" />
+                <idref bean="jobPlanManager" />
+                <idref bean="masterManager" />
+                <idref bean="mrnManager" />
+                <idref bean="pmManager" />
+                <idref bean="securityManager" />
+                <idref bean="stockOperationManager" />
+                <idref bean="storeManager" />
+                <idref bean="userManager" />
+                <idref bean="workorderManager" />
+            </list>
+		</property>
+	</bean> -->
+	<!-- 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:/comp/env/jdbc/DefaultDS</value>
+		</property>
+	</bean> 
+	 -->
+	 <!-- conf/context.xml
+		<Resource name="jdbc/DefaultDS" auth="Container"
+            type="javax.sql.DataSource" username="amms" password="amms"
+            driverClassName="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@localhost:1521:localdb"
+            maxActive="8" maxIdle="4"/>
+            
+	  -->
+	<bean id="dataSource" class="com.j6.framework.spring.dao.DynamicDataSource" >
+	<!-- 
+		<property name="jndiName">
+			<value>java:/comp/env/jdbc/DefaultDS</value>
+		</property>
+	 -->
+		<property name="driverClassName">
+			<value>${db.connection.driver_class}</value>
+		</property>
+		<property name="url">
+			<value>${db.connection.url}</value>
+		</property>
+		<property name="username">
+			<value>${db.connection.username}</value>
+		</property>
+		<property name="password">
+			<value>${db.connection.password}</value>
+		</property>
+	 
+	</bean> 
+	<!-- DataSource Definition 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:/DefaultDS</value>
+		</property>
+	</bean> 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>${db.connection.driver_class}</value>
+		</property>
+		<property name="url">
+			<value>${db.connection.url}</value>
+		</property>
+		<property name="username">
+			<value>${db.connection.username}</value>
+		</property>
+		<property name="password">
+			<value>${db.connection.password}</value>
+		</property>
+	</bean> 
+-->
+	<!-- Hibernate SessionFactory Definition 
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	 -->
+	<bean id="sessionFactory" class="com.j6.framework.user.JAnnotationSessionFactoryBean">
+		
+		
+		<!-- Comment it when using hsql-->
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		
+		<property name="annotatationOrHbmXmlPackagePattern">
+			<list> <!-- Weakness : can not start with regular expression. Eg. .+?privasia.amms -> can not start with ".+?" -->
+				<value>com\.j6\.framework.+?\.vo\..+?</value>				
+			</list>
+		</property>			
+		
+	<!-- 
+		<property name="configLocation">
+			<value>classpath:com/ilium/eapps/resource/hibernate.cfg.xml</value>
+		</property>
+	 -->	 
+		<property name="configurationClass">
+			<value>org.hibernate.cfg.AnnotationConfiguration</value>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				
+				<!-- hsql setting for tutorial use only -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop>auto create table if does not exist  -->
+				<!-- 
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+		        <prop key="hibernate.connection.url">jdbc:hsqldb:file:/test</prop>
+		        <prop key="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</prop> 
+		          -->
+		        
+			</props>
+		</property>
+	</bean>
+	
+	<!-- <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"/> -->
+	<!-- If we opt to use JTA transactions, we could replace this with the JTATransactionManager or
+		configure Hibernante to work with JTATransactions and keep this as is. -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- You can setup a HibernateTemplate that configures Hibernate sessions in special ways.
+		For example, you could set a different FlushMode than the default.
+		NOTE THIS COMMENTED OUT AS THE DEFAULTS ARE ACCEPTABLE.
+		<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+		<ref bean="sessionFactory"/>
+		</property>
+		<property name="cacheQueries">
+		<value>true</value>
+		</property>
+		</bean>
+-->
+
+	<aop:config >
+	  <aop:advisor id="transactionInterceptorFramework" 
+	      pointcut="execution(* com.j6.framework..*manager.*.*(..))"
+	      advice-ref="tx-advice"/>
+	        <aop:advisor id="transactionInterceptor" 
+	      pointcut="execution(* com.privasia..*..*manager.*.*(..))"
+	      advice-ref="tx-advice"/>
+	</aop:config>
+	
+	<tx:advice id="tx-advice">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="create*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="edit*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="do*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="change*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="*" propagation="REQUIRED" read-only="true"/>
+			
+		</tx:attributes>
+	</tx:advice>
+
+	<!--  
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor" >
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="transactionAttributes"> -->
+			<!--Default rule is to roll back on a runtime exception and 
+				commit on any checked exception
+				+ commit
+				- not commit 
+			
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="add*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="create*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="update*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED,-Exception</prop>				
+				<prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="do*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="change*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+-->
+	<!-- BeanNameAutoProxyCreator. comment to auto generate now in application.java
+	<bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<value>transactionInterceptor</value>
+		</property>
+		<property name="beanNames">
+			<bean name="managers" />
+		</property>
+	</bean>
+	-->
+	<bean id="appDetailsBaseAdvice" class="com.j6.framework.spring.aop.AppDetailsBaseAdvice" />
+<!-- <bean id="appDetailsBaseAdvice" class="com.j6.framework.spring.aop.VoExBaseAop" />  -->
+	
+	
+	<bean id="jdbcDao"
+		class="com.j6.framework.spring.dao.JdbcDao">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+
+	<bean id="genericDao" class="org.springframework.aop.framework.ProxyFactoryBean">
+
+		<property name="target">
+			<bean class="com.j6.framework.spring.dao.HibernateDao">
+				<property name="sessionFactory">
+					<ref local="sessionFactory" />
+				</property>
+			</bean>
+		</property>
+		<property name="interceptorNames">
+			<list >
+				<value>appDetailsBaseAdvice</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="autoBeanCreatorFactoryManager" class="com.j6.framework.application.AutoBeanCreatorFactory">
+		<property name="packagePatterns">
+			<list>
+				<value>com\.j6\.framework\..+?\.manager\..+?</value>
+				<value>com\.j6\.project\..+?\.manager\..+?</value>
+			</list>
+		</property>
+		
+	</bean>
+	<bean id="autoBeanCreatorFactoryDao" class="com.j6.framework.application.AutoBeanCreatorFactory">
+		<property name="packagePatterns">
+			<list>
+				<value>com\.j6\.framework\.user\.dao\..+?</value>	
+				<value>com\.j6\.project\..+?\.dao\.mysql\..+?</value>			
+			</list>
+		</property>
+	</bean>
+	<bean id="sql" class="com.j6.framework.application.PackagePatternInjection">
+		<property name="packagePatterns">
+			<list>
+				<value>com\.j6\..+?\.sql\.xml</value>
+			</list>
+		</property>
+	</bean>
+</beans>
