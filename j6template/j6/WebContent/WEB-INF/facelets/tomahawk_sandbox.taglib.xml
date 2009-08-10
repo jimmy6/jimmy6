@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN" "facelet-taglib_1_0.dtd">
+<facelet-taglib>
+    <namespace>http://myfaces.apache.org/sandbox</namespace>
+	<!-- search in META-INF faces-config.xml
+		1) <renderer-type> no need to put if <component-type> is same as  <renderer-type> 
+	-->
+    <tag>
+        <tag-name>convertBoolean</tag-name>
+        <converter>
+            <converter-id>org.apache.myfaces.custom.convertboolean.BooleanConverter</converter-id>
+        </converter>
+    </tag>
+    <tag>
+        <tag-name>convertDateTime</tag-name>
+        <converter>
+            <converter-id>org.apache.myfaces.custom.convertDateTime.DateTimeConverter</converter-id>
+        </converter>
+    </tag>
+    <tag>
+        <tag-name>convertNumber</tag-name>
+        <converter>
+            <converter-id>org.apache.myfaces.custom.convertNumber.TypedNumberConverter</converter-id>
+        </converter>
+    </tag>
+    <tag>
+        <tag-name>effect</tag-name>
+        <component>
+            <component-type>org.apache.myfaces.Div</component-type>
+            <renderer-type>org.apache.myfaces.effect.EffectRenderer</renderer-type>
+        </component>
+    </tag>
+    <tag>
+        <tag-name>focus</tag-name>
+        <component>
+            <component-type>org.apache.myfaces.Focus</component-type>
+            <renderer-type>org.apache.myfaces.Focus</renderer-type>
+        </component>
+    </tag>
+    <tag>
+        <tag-name>planner</tag-name>
+        <component>
+            <component-type>org.apache.myfaces.Planner</component-type>
+        </component>
+    </tag>
+    <tag>
+        <tag-name>selectItems</tag-name>
+        <component>
+            <component-type>org.apache.myfaces.UISelectItems</component-type>
+        </component>
+    </tag>  
+    <tag>
+        <tag-name>selectManyPicklist</tag-name>
+        <component>
+            <component-type>org.apache.myfaces.HtmlSelectManyPicklist</component-type>
+            <renderer-type>org.apache.myfaces.PicklistRenderer</renderer-type>
+        </component>
+    </tag>
+
+    <tag>
+        <tag-name>fieldset</tag-name>
+        <component>
+            <component-type>org.apache.myfaces.Fieldset</component-type>
+            <renderer-type>org.apache.myfaces.FieldsetRenderer</renderer-type>
+        </component>
+    </tag>    
+	<tag>
+        <tag-name>fishEyeNavigationMenu</tag-name>
+        <component>   
+			<component-type>org.apache.myfaces.FishEyeList</component-type>
+			<!-- <renderer-type> no need to put if <component-type> is same as  <renderer-type> -->
+        </component>
+    </tag>  
+	<tag>
+        <tag-name>fishEyeCommandLink</tag-name>
+        <component>
+			<component-type>org.apache.myfaces.FishEyeCommandLink</component-type>
+        </component>
+    </tag>  
+</facelet-taglib>

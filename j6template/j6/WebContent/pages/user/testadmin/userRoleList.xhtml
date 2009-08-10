@@ -1,0 +1,76 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	 xmlns:pvs="http://www.j6.com/component">
+	
+<ui:decorate template="/pages/templates/bodyFrame.xhtml">
+<ui:define name="content">
+	<f:subview id="content">
+		<h:form id="form"> 
+		  
+			<h:panelGrid columns="2">
+				<h:graphicImage url="/images/pointer.jpg"></h:graphicImage>
+				<h:outputText value="#{msg['user.role.details']}"
+					styleClass="pagetitle" style="pagetitle" />
+			</h:panelGrid>
+			<h:outputText value="#{msg['user.role.details']}"
+				styleClass="sectionHeader" />
+			 
+					<rich:dataTable id="userRolesTable" 
+						value="#{userRoleListBean.userRoleDModel}" var="userRole"
+						rows="5" reRender="datascroller" style=" width : 100%;">
+						<rich:column width="1px">
+						 
+							<h:commandButton type="submit" actionListener="#{userRoleListBean.editUserRoleActListener}" alt="Edit"
+								action="#{userRoleListBean.editUserRoleAct}" 
+								image="/images/icons/edit.gif" immediate="true"/>
+				 			<a4j:actionparam id="roleName" value="#{userRole.roleName}" />
+				 			 
+						</rich:column>
+						<rich:column sortable="true" sortBy="#{userRole.roleName}"
+							filterBy="#{userRole.roleName}" filterEvent="onchange"
+							width="10%" label="Role Name">
+							<f:facet name="header">
+								<h:outputText value="Role Name" />
+							</f:facet>
+							<h:outputText value="#{userRole.roleName}" />
+						</rich:column>
+						<rich:column sortable="true" sortBy="#{userRole.status}"
+							filterBy="#{userRole.status}" filterEvent="onchange"
+							width="10%" label="Status">
+							<f:facet name="header">
+								<h:outputText value="Status" />
+							</f:facet>
+							<h:outputText value="#{userRole.status}" />
+						</rich:column>
+							<rich:column sortable="true" sortBy="#{userRole.status}"
+							filterBy="#{userRole.status}" filterEvent="onchange"
+							width="70%" label="Status">
+							<f:facet name="header">
+								<h:outputText value="Description" />
+							</f:facet>
+							<h:outputText value="#{userRole.roleDescription}" />
+						</rich:column>
+ 						<f:facet name="footer">
+                			<rich:datascroller id="datascroller" />
+            			</f:facet>
+
+					</rich:dataTable>
+
+					<h:commandButton value="Add" type="submit" action="userRoleAddBean"
+						title="Add" />
+					<f:verbatim>
+					</f:verbatim>
+					<a4j:commandButton value="Delete" reRender="userRolesTable"
+						action="#{userRoleListBean.deleteUserRolesAction}" title="Delete" />
+			</h:form>
+	</f:subview>
+
+</ui:define>
+</ui:decorate>
+</html>

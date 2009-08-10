@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:pvs="http://www.j6.com/component">
+
+<ui:composition>
+	<c:if test="${empty required}">
+		<c:set var="required" value="false" />
+	</c:if>
+	
+	<h:panelGroup>
+		<h:outputLabel for="#{id}" value="#{label}" />
+		<h:outputText value="*" styleClass="standardTextMandatory" rendered="#{required}"/>		
+	</h:panelGroup>
+	<h:outputText value=":" />								
+	
+		
+		<h:panelGroup style="witdh:100%">
+		<!-- render input component -->	
+		
+			<c:if test="${input =='time'}">
+				<h:panelGroup>
+					<h:inputText value="" size="5" styleClass="text" maxlength="5"/>
+					<h:outputText value=" "/>
+					<h:inputText value="" size="5" styleClass="text" maxlength="5"/>
+					<h:outputText value="(hrs/min)" styleClass="text"/>
+				</h:panelGroup>
+			</c:if>
+			
+			<c:if test="${input =='textArea'}">
+				<h:panelGroup>
+					<t:inputTextarea forceId="true" id="#{id}" value="${backingBean}" required="#{required}" styleClass="text"
+						rows="2" cols="20">
+						<f:attribute name="labelInput" value="#{backingBeanStr}" />
+						 
+						<h:panelGroup rendered="#{saveModeRequired}">
+						
+						<f:attribute name="labelInput" value="#{backingBeanStr}" />
+						</h:panelGroup>  
+						
+						<f:validator validatorId="annotation" />
+						<!-- 
+						<a4j:support reRender="#{id}DivMsg" event="onblur" ajaxSingle="true" ignoreDupResponses="true"
+							bypassUpdates="true" />
+						 -->	
+					</t:inputTextarea >
+				</h:panelGroup>
+			</c:if>
+			
+			<c:if test="${input =='selectOneMenu'}">
+				<h:selectOneMenu id="#{id}" value="${backingBean}" styleClass="text" required="#{required}">
+					<f:selectItems value="#{selectItems}" />	
+				</h:selectOneMenu>	
+			</c:if>
+			
+			<c:if test="${empty input}">
+				<pvs:inputText forceId="true" id="#{id}" value="${backingBean}" onkeyup="#{onkeyup}" required="#{required}" styleClass="text" >
+					<f:attribute name="labelInput" value="${backingBeanStr}" />
+					 
+					<h:panelGroup rendered="#{saveModeRequired}">
+					
+					<f:attribute name="labelInput" value="${backingBeanStr}" />
+					</h:panelGroup>  
+					
+					<f:validator validatorId="annotation" />
+					<!-- 
+					<a4j:support reRender="#{id}DivMsg" event="onblur" ajaxSingle="true" ignoreDupResponses="true"
+							bypassUpdates="true" />  --> 
+				</pvs:inputText>
+			</c:if>
+			
+			<t:div id="#{id}DivMsg">
+				<h:message id="#{id}Msg" for="#{id}" errorClass="error" fatalClass="error" />
+			</t:div>
+		</h:panelGroup>
+	
+</ui:composition>
+
+</html>

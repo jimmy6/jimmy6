@@ -1,0 +1,180 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox" 
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:authz="http://sourceforge.net/projects/jsf-comp/acegijsf">
+      
+<!--
+ifGranted['rolename']} : If the user is in the role "rolename", returns true or vice versa
+ifAllGranted['rolename1,rolename2']} : Returns true if user is in all of the roles given in the roles list, vice versa
+ifAnyGranted['rolename1,rolename2']} : Returns true if user is in any one of the roles given in the roles list, vice versa
+ifNotGranted['rolename1,rolename2']} : Returns true if user is not in any of the roles given in the roles list, vice versa
+-->
+
+<head>
+    <meta http-equiv="Pragma" content="no-cache"/>
+	<meta http-equiv="Cache-Control" content="no-cache"/>
+	<meta http-equiv="Cache-Control" content="must-revalidate"/>
+	<meta http-equiv="Cache-Control" content="no-store"/>
+	<meta http-equiv="Cache-Control" content="private"/>
+	<meta http-equiv="Cache-Control" content="max-age=0"/>
+	<meta http-equiv="Expires" content="-1"/>
+    
+    <link rel="stylesheet" type="text/css" href= "#{globalEnv.cssPath}/fonts.css"/>
+    
+	<script type="text/javascript">
+	
+		/* <![CDATA[ */
+        function closeLeft()
+        {	var closeTo=35;
+        	var current=parent.contentFrame.cols.split(',')[0];
+           
+            for( ;current>closeTo;current--){
+            	parent.contentFrame.cols = current+",*";
+            	for(i=0;i!=1111;i++){
+            		a=1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2+1+2;
+            	}
+            }
+        }
+
+        function openLeft()
+        {	var openTo=195;
+        	var current=parent.contentFrame.cols.split(',')[0];
+            
+            for( ;current<openTo;current++){
+            	parent.contentFrame.cols = current+",*";
+            	 
+            }
+        }
+        /* ]]> */    
+        
+	</script>
+
+</head>
+<body >
+
+<h:form target="main" >
+   
+<f:loadBundle basename="resource.bundle.messages" var="msg"/>
+<div align="left" class="text2">
+	<h:commandButton type="button" onclick="closeLeft(); return false;" value="&lt;&lt;" styleClass="button" />
+	<h:commandButton type="button" onclick="openLeft(); return false;" value="&gt;&gt;" styleClass="button" />	    
+</div>
+
+ 
+<rich:panelMenu style="width:170px"  mode="server"
+	iconExpandedGroup="disc" iconCollapsedGroup="disc" 
+	iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" 
+	iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right" >
+	
+	 <rich:panelMenuGroup label="Administration">
+
+		<rich:panelMenuGroup label="Section">
+            <rich:panelMenuItem label="Create" onclick="window.open ('#{globalEnv.contextPath}/pages/master/section/sectionAdd.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />
+			<rich:panelMenuItem label="List" onclick="window.open ('#{globalEnv.contextPath}/pages/master/section/sectionList.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />            
+		</rich:panelMenuGroup>  
+		<rich:panelMenuGroup label="Work Type">
+            <rich:panelMenuItem label="Create" onclick="window.open ('#{globalEnv.contextPath}/pages/master/workType/workorderTypeAdd.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />
+			<rich:panelMenuItem label="List" onclick="window.open ('#{globalEnv.contextPath}/pages/master/workType/workorderTypeList.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />            
+		</rich:panelMenuGroup>  
+		<rich:panelMenuGroup label="Equip Brand">
+            <rich:panelMenuItem label="Create" onclick="window.open ('#{globalEnv.contextPath}/pages/master/equipBrand/equipBrandAdd.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />
+			<rich:panelMenuItem label="List" onclick="window.open ('#{globalEnv.contextPath}/pages/master/equipBrand/equipBrandList.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />            
+		</rich:panelMenuGroup>  
+		<rich:panelMenuGroup label="Equipment Type">            
+            <rich:panelMenuItem label="Create" onclick="window.open ('#{globalEnv.contextPath}/pages/master/equipType/equipTypeAdd.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />
+			<rich:panelMenuItem label="List" onclick="window.open ('#{globalEnv.contextPath}/pages/master/equipType/equipTypeList.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />
+		</rich:panelMenuGroup>
+			  
+		<rich:panelMenuGroup label="Labor">
+            <!-- <rich:panelMenuItem label="User Profile" action="userAddBean" target="main"/>
+			<rich:panelMenuItem label="Change Login Password" action="loginPasswordEditBean" target="main"/> -->
+            <rich:panelMenuItem label="#{msg['user.profile']}" onclick="window.open ('#{globalEnv.contextPath}/pages/user/admin/userAdd.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;"  />
+			<rich:panelMenuItem label="#{msg['changepassword.title']}" onclick="window.open ('#{globalEnv.contextPath}/pages/user/personal/loginPasswordEdit.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;" />
+		</rich:panelMenuGroup>  	
+				  
+		<rich:panelMenuGroup label="Role">
+            <!--<rich:panelMenuItem label="#{msg['user.details']}" onclick="window.open ('#{globalEnv.contextPath}/pages/user/testadmin/userList.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;"/>
+			<rich:panelMenuItem label="User Role Details" action="userRoleListBean" target="main"/>-->
+            
+		 	<rich:panelMenuItem label="User Details" action="userListBean" target="main"/>
+		 	<rich:panelMenuItem label="User Details Test" action="userListBeanTest" target="main"/>
+		 	<rich:panelMenuItem label="User Role Details Test" action="userRoleListBean" target="main"/>
+		</rich:panelMenuGroup>
+		
+		<rich:panelMenuGroup label="Service Contract">
+            <rich:panelMenuItem label="Create" onclick="window.open ('#{globalEnv.contextPath}/pages/master/service/serviceContractAdd.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;"/>
+			<rich:panelMenuItem label="List" onclick="window.open ('#{globalEnv.contextPath}/pages/master/service/serviceContractList.jsf?PVS_CLEAR_JSF_SUBMITTED_VALUE=true','main'); return false;"/>
+		</rich:panelMenuGroup>  								 
+		  								 
+	</rich:panelMenuGroup>	
+		       
+</rich:panelMenu>
+<!-- 
+<rich:dropDownMenu popupWidth="111" value="account"
+                   jointPoint="true" direction="right">
+    <rich:menuItem value="#{msg['user.profile']}" action="userEditBean"/>
+    <rich:menuItem value="#{msg['changepassword.title']}"
+                   action="loginPasswordEditBean"/>
+</rich:dropDownMenu>
+
+<authz:authorize ifAnyGranted="ACT_RPT">
+    <rich:dropDownMenu popupWidth="111" value="report" jointPoint="true"
+                       direction="right">
+        <rich:menuItem value="r1" action="userProfile"/>
+        <rich:menuItem value="r2" action="loginPasswordEditBean"/>
+    </rich:dropDownMenu>
+</authz:authorize>
+
+<authz:authorize ifAnyGranted="ACT_USERADM">
+
+    <rich:dropDownMenu popupWidth="111"
+                       value="#{msg['user.administration']}" jointPoint="true"
+                       direction="right">
+        <rich:menuItem value="#{msg['user.details']}"
+                       action="userListBean"/>
+        <rich:menuItem value="#{msg['user.role.details']}"
+                       action="userRoleListBean"/>
+    </rich:dropDownMenu>
+</authz:authorize>
+
+<rich:dropDownMenu popupWidth="111" value="Preventive Maintenance"
+                   jointPoint="true" direction="right">
+
+    <rich:menuItem value="Plan Preventive Maintenance"
+                   action="ppmCalendar"/>
+    <rich:menuGroup value="Preventive Maintenance">
+        <rich:menuItem value="Manage" action="pmList"/>
+        <rich:menuItem value="Add" action="pmEdit"/>
+    </rich:menuGroup>
+
+</rich:dropDownMenu>
+
+<rich:dropDownMenu popupWidth="111" value="WO" jointPoint="true"
+                   direction="right">
+
+    <rich:menuItem value="Manage" action="woList"/>
+    <rich:menuItem value="Add" action="woCreate"/>
+    <rich:menuItem value="Approval List" action="woApproval"/>
+
+    <rich:menuGroup value="Work Order Group">
+        <rich:menuItem value="Manage"/>
+        <rich:menuItem value="Add"/>
+    </rich:menuGroup>
+</rich:dropDownMenu>
+
+<rich:dropDownMenu popupWidth="111" value="MRN">
+    <rich:menuItem value="Manage" action="mrnList"/>
+</rich:dropDownMenu>
+
+<rich:dropDownMenu value="Job Plan">
+    <rich:menuItem value="Manage" action="jobPlanList"/>
+    <rich:menuItem value="Add" action="jobPlan"/>
+</rich:dropDownMenu>
+ -->
+</h:form>
+</body>
+</html>

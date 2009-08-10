@@ -1,0 +1,52 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox" 
+    xmlns:t="http://myfaces.apache.org/tomahawk"
+    xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+    xmlns:pvs="http://www.j6.com/component">
+    
+    
+<ui:decorate template="/pages/templates/bodyFrame.xhtml"> 
+<ui:define name="content">
+    
+<f:subview id="content">
+	<h:form id="form">
+	<h:panelGrid columns="2">		
+		<h:graphicImage url="/images/pointer.jpg"></h:graphicImage>
+		<h:outputText value="#{msg['user.role.creation']}" styleClass="pagetitle" style="pagetitle"/>
+	</h:panelGrid>
+	<h:outputText value="#{msg['asterisk']}" styleClass="standardTextMandatory"/>
+	<h:outputText styleClass="standardTextMandatory" value="#{msg['instruction']}"/>
+	<f:verbatim><br/></f:verbatim>
+	<h:outputText value="#{msg['user.role']}" styleClass="sectionHeader" />	
+	<h:panelGrid columns="3" styleClass="panelGrid" columnClasses="labelColumn, inputColumn">
+	
+		<pvs:labelInput id="userRoleName" backingBean="#{userRoleAddBean.userRole.roleName}" 
+			 backingBeanStr="userRoleAddBean.userRole.roleName" label="User Role Name" />  
+		
+		<pvs:labelInput id="userRoleDescription" backingBean="#{userRoleAddBean.userRole.roleDescription}" 
+			 backingBeanStr="userRoleAddBean.userRole.roleDescription" label="Description" input="textArea"/>  
+		
+		<h:outputLabel for="enabled" value="Enabled"/>		
+		<h:outputLabel value=":" />	
+		<h:selectBooleanCheckbox id="enabled" value="#{userRoleAddBean.userRole.status}" />
+	</h:panelGrid>
+	<f:verbatim><br/></f:verbatim>
+	
+	<h:outputLabel for="modules" value="#{msg['module']}" styleClass="sectionHeader" />			
+	<h:selectManyCheckbox id="modules" styleClass="account_content" layout="pageDirection" value="#{userRoleAddBean.userRole.roleActivities}">
+		<f:selectItems value="#{predefinedValueBean.roleActivities4SelectItems}" /> 
+	</h:selectManyCheckbox>
+
+	<br/>
+	<a4j:commandButton value="Save" type="submit" ignoreDupResponses="true" action="#{userRoleAddBean.saveUserRoleAction}" reRender="messages,form" />	 
+			
+	<f:verbatim>   </f:verbatim>
+	<h:commandButton value="Cancel"  type="submit" action="userRoleListBean" title="Cancel" immediate="true"/>
+	</h:form>
+</f:subview>
+</ui:define>
+</ui:decorate>
+</html>

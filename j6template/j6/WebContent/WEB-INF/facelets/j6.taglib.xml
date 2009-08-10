@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN" "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+<facelet-taglib>
+	<namespace>http://www.j6.com/component</namespace>
+
+    <!-- application -->
+    <!-- 
+    <tag>
+		<tag-name>binLookupInput</tag-name>
+		<source>application/binLookupInput.xhtml</source>
+	</tag>
+ 	-->
+	
+    <!-- components -->
+	<tag>
+		<tag-name>inputText</tag-name>
+		<component>
+			<component-type>
+				com.j6.framework.user.HtmlInputTextTag
+			</component-type>
+		</component>
+	</tag>
+	<tag>
+		<tag-name>inputTextarea</tag-name>
+		<component>
+			<component-type>
+					com.j6.framework.user.HtmlInputTextArea
+			</component-type>
+			<renderer-type>
+				com.j6.framework.jsf.component.HtmlTextareaRenderer
+			</renderer-type>
+		</component>
+	</tag>
+	<tag>
+		<tag-name>inputCalendar</tag-name>
+		<component>
+			<component-type>
+				com.j6.framework.jsf.component.HtmlInputCalendar
+			</component-type>
+		</component>
+	</tag>	
+	<tag>
+		<tag-name>labelInput</tag-name>
+		<source>components/labelInput.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>outputLabel</tag-name>
+		<component>
+			<component-type>javax.faces.HtmlOutputLabel</component-type>
+			<renderer-type>
+				com.j6.framework.jsf.component.HtmlLabelRenderer
+			</renderer-type>
+		</component>
+	</tag>
+
+    <!-- functions -->
+    <function>
+        <function-name>escapeJavaScript</function-name>
+        <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
+        <function-signature>java.lang.String escapeJavaScript(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <function-name>isNumeric</function-name>
+        <function-class>org.apache.commons.lang.StringUtils</function-class>
+        <function-signature>java.lang.Boolean isNumeric(java.lang.String)</function-signature>
+    </function>
+    
+</facelet-taglib>

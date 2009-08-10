@@ -1,0 +1,206 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+      xmlns:rich="http://richfaces.ajax4jsf.org/rich" 
+      xmlns:pvs="http://www.j6.com/component">
+
+<head>
+
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="must-revalidate"/>
+<meta http-equiv="Cache-Control" content="no-store"/>
+<meta http-equiv="Cache-Control" content="private"/>
+<meta http-equiv="Cache-Control" content="max-age=0"/>
+<meta http-equiv="Expires" content="-1"/>
+
+<title>Jimmy6 Template</title>
+
+<script type="text/javascript" language="javascript" src="#{globalEnv.javaScriptPath}/utils.js"></script>
+ 
+<t:stylesheet path="/css/tables.css"/>
+<t:stylesheet path="/css/fonts.css"/>
+<t:stylesheet path="/css/style.css"/>
+<style type="text/css">
+<!--
+body {
+	margin-left: 10px;
+	margin-top: -10px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+
+var myActionPanel;
+var pageTop;
+var promoStop;
+var chkNetscape = (navigator.appName.indexOf("Netscape") != -1);
+var px = document.layers ? "" : "px";
+var promoLocation = 0;
+var VMsg;
+var RMsg;
+
+function setActionPanelStart(startY)
+{
+    //alert("1");
+    actionPanel = document.getElementById("divActionPanel");
+    actionPanel.style.zIndex=555;//to make the this toolbar display infront of richfaces components.
+    var message = document.getElementById("divMessages").innerHTML;
+    document.getElementById("divMessages").innerHTML = "";
+    actionPanel.innerHTML = message + actionPanel.innerHTML;
+
+    if (actionPanel == null)
+        alert("invalid divActionPanel!!!");
+
+    var startX = actionPanel.offsetLeft;
+        //alert("actionPanel.offsetLeft = " + actionPanel.offsetLeft);
+
+    //alert("actionPanel = " + actionPanel);
+    pageTop = document.getElementById("topBar");
+        //alert("pageTop = " + pageTop);
+    /*if (VMsg)
+    InitVMsgHeight();
+if (RMsg)
+    InitRightMsgHeight();*/
+    promoStop = document.getElementById("bottomBar").offsetTop - actionPanel.offsetHeight - 30;
+
+    if (document.layers)actionPanel.style = actionPanel;
+    actionPanel.style.position = 'absolute';
+    actionPanel.style.left = startX + px;
+    actionPanel.x = startX;
+    actionPanel.y = startY;
+
+    setActionPanel();
+}
+
+function setActionPanel()
+{
+    var pY = (chkNetscape ? window.pageYOffset : (document.documentElement && document.documentElement.scrollTop) ? document.documentElement.scrollTop : document.body.scrollTop) + 15;
+    if (promoLocation == pY)
+    {
+        if (actionPanel.y > promoStop)actionPanel.y = promoStop;
+        else
+        {
+            var dY = (pY > pageTop.offsetTop) ? pY : pageTop.offsetTop;
+            actionPanel.y += (dY - actionPanel.y);
+            actionPanel.style.top = actionPanel.y + px;
+        }
+    }
+
+    promoLocation = pY;
+
+    setTimeout("setActionPanel()", 250);
+}
+
+
+/*function initMasking(inObject) {
+    timeMask = new Mask("##:##");
+    timeMask.attach(inObject);
+}*/
+
+function trim(str) {
+    str = str.replace(/^\s+/g, "");// strip leading
+    return str.replace(/\s+$/g, "");// strip trailing
+}
+
+function IsValidTime(inObject) {
+    var inObjectvalue = inObject.value;
+    /*	0 ~ 9 */
+    if (inObjectvalue.length == 2) {
+        if (inObjectvalue < 24) {
+            inObject.value = inObject.value + ":";
+        } else {
+            alert('Hour must be between 0 and 23!');
+            inObject.value = '';
+        }
+    }
+    if (inObjectvalue.length == 5) {
+        mArr = inObjectvalue.split(':');
+        if (mArr[1] >= 60) {
+            alert('Minute must be between 0 and 59!');
+            inObject.value = '';
+        }
+    }
+}
+
+function fieldToValidTimeformat(inObject) {
+
+    var inObjectvalue = trim(inObject.value);
+
+    if (inObjectvalue.length < 5 && inObjectvalue.length > 0) {
+        alert('Invalid Input Time!');
+        inObject.focus();
+    }
+}
+
+function showContent(){
+    document.getElementById('loadingDiv').style.display = 'none';
+    document.getElementById('contentDiv').style.display = '';	
+}
+  
+/* ]]> */
+</script>
+</head>
+<body bgcolor="#FFFFFF" onload="showContent();" >
+<div id="loadingDiv" style="font-size: 15"><br/>Loading...</div>
+<div id="contentDiv" style="">
+<f:view>
+
+    <f:loadBundle basename="resource.bundle.messages" var="msg"/>
+    <f:loadBundle basename="com.j6.project.resources.bizConfig" var="bizCfg"/>
+   	<rich:modalPanel id="pvsLoadingDialog" minHeight="100" minWidth="400" 
+		height="100" width="400" zindex="10000" >
+		<f:facet name="header">
+			<h:outputText value="Loading..." />
+		</f:facet>
+		
+			<br/>
+			<center>Fetching data...<br/><img src="#{globalEnv.imagePath}/icons/connect_active.gif" alt="processing..." /></center>
+			<br/>
+	
+	</rich:modalPanel>
+
+    <div id="topBar" style="position: absolute;"></div>
+    <h:form/><!-- this empty form needed to solve error cause by sorting in quipukit datatable. error occur when sorting and click the logout button. -->
+    <h:form>
+
+    </h:form>
+    <table width="100%" align="left">
+        <tr>
+            <td height="500" valign="top" width="100%" align="left">
+                <!-- Error Messages -->
+                <ui:include src="messages.xhtml"/>
+                <a4j:region id="ajaxRegionMain" >     
+              	<a4j:loadBundle  basename="resource.bundle.messages" var="msg"/> 
+				<a4j:loadBundle basename="com.j6.project.resources.bizConfig" var="bizCfg"/> 
+   
+                <ui:insert name="content"></ui:insert>
+                
+                </a4j:region>
+
+            </td>
+        </tr>
+    </table>
+
+
+    <div id="bottomBar" style="position: absolute"/>
+    <ui:insert name="floatingActionPanel">
+
+    </ui:insert>
+
+
+</f:view>
+ 
+</div>
+</body>
+
+</html>

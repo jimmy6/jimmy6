@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+                              "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+<faces-config>
+
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.LoginBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>userAddBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.UserAddBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>loginPasswordEditBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.LoginPasswordEditBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userRoleAddBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.UserRoleAddBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userRoleListBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.UserRoleListBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userRoleEditBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.UserRoleEditBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userListBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.UserListBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userEditBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.UserEditBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userAndUserRoleEditBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.UserAndUserRoleEditBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>predefinedValueBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.PredefinedValueBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+		<managed-property>
+			<property-name>pleaseSelect</property-name>
+			<property-class>java.lang.String</property-class>
+			<value>[Please Select]</value>
+		</managed-property>
+		<managed-property>
+			<property-name>alwaysAccessDB</property-name>
+			<value>true</value>
+		</managed-property>
+
+	</managed-bean>
+
+	<!-- Menu navigation -->
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/pages/templates/home.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>main</from-outcome>
+			<to-view-id>/pages/templates/main.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>userEditBean</from-outcome>
+			<to-view-id>/pages/user/personal/userEdit.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>loginPasswordEditBean</from-outcome>
+			<to-view-id>/pages/user/personal/loginPasswordEdit.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userList.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleList.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>loginBean</from-outcome>
+			<to-view-id>/pages/user/login.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+        <navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/pages/user/logout.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+
+    </navigation-rule>
+	<!-- End Menu navigation -->
+
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userList.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userRoleList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleAddBean</from-outcome>
+			<to-view-id>/pages/user/admin/userRoleAdd.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/admin/userRoleEdit.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userRoleEdit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userRoleList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userAndUserRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/admin/userAndUserRoleEdit.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userAddBean</from-outcome>
+			<to-view-id>/pages/user/admin/userAdd.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userRoleAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userRoleList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- TESTINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG -->
+	<navigation-rule>
+		<from-view-id>/pages/user/testadmin/userRoleAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/user/testadmin/userList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userAddBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userAdd.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userAndUserRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userAndUserRoleEdit.jsf</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/user/testadmin/userRoleList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleAddBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleAdd.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleEdit.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/testadmin/userRoleList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleAddBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleAdd.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleEdit.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+ 
+	<navigation-rule>
+		
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleEdit.jsf</to-view-id>
+		</navigation-case>
+	 
+	</navigation-rule>
+ 
+	<managed-bean>
+		<managed-bean-name>userListBeanTest</managed-bean-name>
+		<managed-bean-class>com.j6.project.user.controller.managedbean.UserListBeanTest</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>userListBeanTest</from-outcome>
+			<to-view-id>/pages/user/testadmin/userList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	 
+</faces-config>

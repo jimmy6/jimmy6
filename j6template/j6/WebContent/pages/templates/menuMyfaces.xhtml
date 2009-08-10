@@ -1,0 +1,42 @@
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	 
+	xmlns:x="http://myfaces.apache.org/tomahawk">
+
+<ice:form>
+	<ice:panelGroup styleClass="formBorderHighlight" style="height: 150px ">
+		<x:jscookMenu layout="vbr" theme="ThemeOffice">
+			<x:navigationMenuItem itemValue="Preventive Maintenance">
+				<x:navigationMenuItem itemValue="Plan Preventive Maintenance" />
+				<x:navigationMenuItem itemValue="Preventive Maintenance">
+					<x:navigationMenuItem itemValue="Manage" action="ppmCalendar" />
+					<x:navigationMenuItem itemValue="Add" action="pmEdit" />
+				</x:navigationMenuItem>
+			</x:navigationMenuItem>
+
+			<x:navigationMenuItem itemValue="Work Order">
+				<x:navigationMenuItem itemValue="Manage" action="woList" />
+				<x:navigationMenuItem itemValue="Add" action="woCreate" />
+				<x:navigationMenuItem itemValue="Approve" action="woApprove" />
+
+				<x:navigationMenuItem itemValue="Work Order Group">
+					<x:navigationMenuItem itemValue="Manage" />
+					<x:navigationMenuItem itemValue="Add" />
+				</x:navigationMenuItem>
+			</x:navigationMenuItem>
+
+			<x:navigationMenuItem itemValue="MRN" action="mrmList" />
+
+			<x:navigationMenuItem itemValue="Job Plan">
+				<x:navigationMenuItem itemValue="Manage" action="jobPlanList" />
+				<x:navigationMenuItem itemValue="Add" action="jobPlan" />
+			</x:navigationMenuItem>
+
+		</x:jscookMenu>
+	</ice:panelGroup>
+</ice:form>
+</html>

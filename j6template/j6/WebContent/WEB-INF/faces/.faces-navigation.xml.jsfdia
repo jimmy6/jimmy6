@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS ENTITY="JSFProcess">
+ <PROCESS-ITEM ENTITY="JSFProcessGroup" NAME="rules:*" PATH="*" SHAPE="32,17,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem" ID="rules:*:0" NAME="item" PATH="*">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="home::#pages#secure#home.jsf" NAME="output"
+    PATH="/pages/secure/home.jsf" TARGET="rules:#pages#secure#home.jsf" TITLE="home"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userEditBean::#pages#user#personal#userEdit.jsf" NAME="output1"
+    PATH="/pages/user/personal/userEdit.jsf"
+    TARGET="rules:#pages#user#personal#userEdit.jsf" TITLE="userEditBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="loginPasswordEditBean::#pages#user#personal#loginPasswordEdit.jsf"
+    NAME="output2" PATH="/pages/user/personal/loginPasswordEdit.jsf"
+    TARGET="rules:#pages#user#personal#loginPasswordEdit.jsf" TITLE="loginPasswordEditBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userListBean::#pages#user#testadmin#userList.jsf" NAME="output3"
+    PATH="/pages/user/testadmin/userList.jsf"
+    TARGET="rules:#pages#user#testadmin#userList.jsf" TITLE="userListBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleListBean::#pages#user#testadmin#userRoleList.jsf"
+    NAME="output4" PATH="/pages/user/testadmin/userRoleList.jsf"
+    TARGET="rules:#pages#user#testadmin#userRoleList.jsf" TITLE="userRoleListBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="loginBean::#pages#user#login.jsf" NAME="output5"
+    PATH="/pages/user/login.jsf" TARGET="rules:#pages#user#login.jsf" TITLE="loginBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#secure#home.jsf" PATH="/pages/secure/home.jsf" SHAPE="576,833,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#usermgmt#admin#userRoleEdit.xhtml"
+  PATH="/pages/usermgmt/admin/userRoleEdit.xhtml" SHAPE="32,2225,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#usermgmt#admin#userRoleEdit.xhtml:0" NAME="item" PATH="/pages/usermgmt/admin/userRoleEdit.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleAddBean::#pages#user#testadmin#userRoleAdd.jsf"
+    NAME="output" PATH="/pages/user/testadmin/userRoleAdd.jsf"
+    TARGET="rules:#pages#user#testadmin#userRoleAdd.jsf" TITLE="userRoleAddBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleEditBean::#pages#user#testadmin#userRoleEdit.jsf"
+    NAME="output1" PATH="/pages/user/testadmin/userRoleEdit.jsf"
+    TARGET="rules:#pages#user#testadmin#userRoleEdit.jsf" TITLE="userRoleEditBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userAdd.xhtml"
+  PATH="/pages/user/admin/userAdd.xhtml" SHAPE="32,2593,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#user#admin#userAdd.xhtml:0" NAME="item" PATH="/pages/user/admin/userAdd.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userListBean::#pages#user#admin#userList.jsf" NAME="output"
+    PATH="/pages/user/admin/userList.jsf"
+    TARGET="rules:#pages#user#admin#userList.jsf" TITLE="userListBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userRoleList.xhtml"
+  PATH="/pages/user/admin/userRoleList.xhtml" SHAPE="32,2705,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#user#admin#userRoleList.xhtml:0" NAME="item" PATH="/pages/user/admin/userRoleList.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleAddBean::#pages#user#admin#userRoleAdd.jsf"
+    NAME="output" PATH="/pages/user/admin/userRoleAdd.jsf"
+    TARGET="rules:#pages#user#admin#userRoleAdd.jsf" TITLE="userRoleAddBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleEditBean::#pages#user#admin#userRoleEdit.jsf"
+    NAME="output1" PATH="/pages/user/admin/userRoleEdit.jsf"
+    TARGET="rules:#pages#user#admin#userRoleEdit.jsf" TITLE="userRoleEditBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userRoleEdit.xhtml"
+  PATH="/pages/user/admin/userRoleEdit.xhtml" SHAPE="32,2961,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#user#admin#userRoleEdit.xhtml:0" NAME="item" PATH="/pages/user/admin/userRoleEdit.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleListBean::#pages#user#admin#userRoleList.jsf"
+    NAME="output" PATH="/pages/user/admin/userRoleList.jsf"
+    TARGET="rules:#pages#user#admin#userRoleList.jsf" TITLE="userRoleListBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userList.xhtml"
+  PATH="/pages/user/admin/userList.xhtml" SHAPE="32,3185,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#user#admin#userList.xhtml:0" NAME="item" PATH="/pages/user/admin/userList.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userAndUserRoleEditBean::#pages#user#admin#userAndUserRoleEdit.jsf"
+    NAME="output" PATH="/pages/user/admin/userAndUserRoleEdit.jsf"
+    TARGET="rules:#pages#user#admin#userAndUserRoleEdit.jsf" TITLE="userAndUserRoleEditBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userAddBean::#pages#user#admin#userAdd.jsf" NAME="output1"
+    PATH="/pages/user/admin/userAdd.jsf"
+    TARGET="rules:#pages#user#admin#userAdd.jsf" TITLE="userAddBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userRoleAdd.xhtml"
+  PATH="/pages/user/admin/userRoleAdd.xhtml" SHAPE="32,3073,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#user#admin#userRoleAdd.xhtml:0" NAME="item" PATH="/pages/user/admin/userRoleAdd.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleListBean::#pages#user#admin#userRoleList.jsf"
+    NAME="output" PATH="/pages/user/admin/userRoleList.jsf"
+    TARGET="rules:#pages#user#admin#userRoleList.jsf" TITLE="userRoleListBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userRoleAdd.xhtml"
+  PATH="/pages/user/testadmin/userRoleAdd.xhtml" SHAPE="32,513,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#user#testadmin#userRoleAdd.xhtml:0" NAME="item" PATH="/pages/user/testadmin/userRoleAdd.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleListBean::#pages#user#testadmin#userRoleList.jsf"
+    NAME="output" PATH="/pages/user/testadmin/userRoleList.jsf"
+    TARGET="rules:#pages#user#testadmin#userRoleList.jsf" TITLE="userRoleListBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userList.xhtml"
+  PATH="/pages/user/testadmin/userList.xhtml" SHAPE="32,3441,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#user#testadmin#userList.xhtml:0" NAME="item" PATH="/pages/user/testadmin/userList.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userAddBean::#pages#user#testadmin#userAdd.jsf" NAME="output"
+    PATH="/pages/user/testadmin/userAdd.jsf"
+    TARGET="rules:#pages#user#testadmin#userAdd.jsf" TITLE="userAddBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userAndUserRoleEditBean::#pages#user#testadmin#userAndUserRoleEdit.jsf"
+    NAME="output1" PATH="/pages/user/testadmin/userAndUserRoleEdit.jsf"
+    TARGET="rules:#pages#user#testadmin#userAndUserRoleEdit.jsf" TITLE="userAndUserRoleEditBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userRoleList.xhtml"
+  PATH="/pages/user/testadmin/userRoleList.xhtml" SHAPE="32,2449,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#pages#user#testadmin#userRoleList.xhtml:0" NAME="item" PATH="/pages/user/testadmin/userRoleList.xhtml">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleAddBean::#pages#user#testadmin#userRoleAdd.jsf"
+    NAME="output" PATH="/pages/user/testadmin/userRoleAdd.jsf"
+    TARGET="rules:#pages#user#testadmin#userRoleAdd.jsf" TITLE="userRoleAddBean"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="userRoleEditBean::#pages#user#testadmin#userRoleEdit.jsf"
+    NAME="output1" PATH="/pages/user/testadmin/userRoleEdit.jsf"
+    TARGET="rules:#pages#user#testadmin#userRoleEdit.jsf" TITLE="userRoleEditBean"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userList.jsf"
+  PATH="/pages/user/testadmin/userList.jsf" SHAPE="304,417,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#personal#loginPasswordEdit.jsf"
+  PATH="/pages/user/personal/loginPasswordEdit.jsf" SHAPE="304,305,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userAndUserRoleEdit.jsf"
+  PATH="/pages/user/admin/userAndUserRoleEdit.jsf" SHAPE="256,3201,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#personal#userEdit.jsf"
+  PATH="/pages/user/personal/userEdit.jsf" SHAPE="304,33,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userAdd.jsf"
+  PATH="/pages/user/admin/userAdd.jsf" SHAPE="256,3345,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userRoleList.jsf"
+  PATH="/pages/user/admin/userRoleList.jsf" SHAPE="256,2977,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userRoleAdd.jsf"
+  PATH="/pages/user/testadmin/userRoleAdd.jsf" SHAPE="256,2321,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userAndUserRoleEdit.jsf"
+  PATH="/pages/user/testadmin/userAndUserRoleEdit.jsf" SHAPE="256,3601,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userRoleAdd.jsf"
+  PATH="/pages/user/admin/userRoleAdd.jsf" SHAPE="256,2721,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userRoleList.jsf"
+  PATH="/pages/user/testadmin/userRoleList.jsf" SHAPE="304,529,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userRoleEdit.jsf"
+  PATH="/pages/user/admin/userRoleEdit.jsf" SHAPE="256,2865,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userAdd.jsf"
+  PATH="/pages/user/testadmin/userAdd.jsf" SHAPE="256,3457,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#login.jsf" PATH="/pages/user/login.jsf" SHAPE="304,641,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#testadmin#userRoleEdit.jsf"
+  PATH="/pages/user/testadmin/userRoleEdit.jsf" SHAPE="256,2465,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#pages#user#admin#userList.jsf"
+  PATH="/pages/user/admin/userList.jsf" SHAPE="240,2609,0,0"/>
+</PROCESS>

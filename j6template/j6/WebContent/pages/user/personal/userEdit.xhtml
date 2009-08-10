@@ -1,0 +1,52 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox"  
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:pvs="http://www.j6.com/component"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"> 
+	
+<ui:decorate template="/pages/templates/bodyFrame.xhtml"> 
+<ui:define name="content">
+<f:subview id="content">
+	<h:form id="form">
+		<h:panelGrid columns="2">		
+			<h:graphicImage url="/images/pointer.jpg"></h:graphicImage>
+			<h:outputText value="#{msg['user.modification']}" styleClass="pagetitle" style="pagetitle"/>
+		</h:panelGrid>
+		<h:outputText value="#{msg['asterisk']}" styleClass="standardTextMandatory"/>
+		<h:outputText styleClass="standardTextMandatory" value="#{msg['instruction']}"/>
+		<f:verbatim><br/></f:verbatim>
+		<h:outputText value="#{msg['user.details']}" styleClass="sectionHeader" />	
+		<h:panelGrid columns="2" styleClass="panelGrid" columnClasses="labelColumn, inputColumn">
+			
+			<h:outputLabel for="userID" value="User ID"/>
+			<h:inputText id="userID" readonly="true" value="#{userEditBean.user.username}" maxlength="50"/>
+			
+			<pvs:labelInput id="name" backingBean="#{userEditBean.user.name}" 
+			 		backingBeanStr="userEditBean.user.name" label="Name" required="true"/>  
+			
+			<pvs:labelInput id="email" backingBean="#{userEditBean.user.email}" 
+			 		backingBeanStr="userEditBean.user.email" label="Email" required="true"/>  
+			 		
+ 			<h:panelGroup>
+				<h:outputLabel for="dob" value="DOB" />
+				<h:outputText value="*" styleClass="standardTextMandatory" />
+			</h:panelGroup>
+			
+			<pvs:labelInput id="dob" backingBean="#{userEditBean.user.dob}" input="date"
+			 		backingBeanStr="userEditBean.user.dob" label="DOB" required="true"/>  
+			
+		</h:panelGrid>
+	
+		<br/>
+		<!-- Command button must always reRender "messages". to avoid hiding backed error/info message -->
+		<a4j:commandButton reRender="messages,form" value="Save"  type="submit" action="#{userEditBean.updateUser}" title="Save"/>	
+		 
+		<h:commandButton value="Cancel"  type="submit" action="home" title="Cancel" immediate="true"/>
+	</h:form>
+</f:subview>
+</ui:define>
+</ui:decorate>
+</html>

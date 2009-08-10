@@ -1,0 +1,56 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox"  
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:pvs="http://www.j6.com/component"> 
+	<ui:decorate template="/pages/templates/bodyFrame.xhtml"> 
+	<ui:define name="content">
+
+<f:subview id="content">
+	<h:form id="form1">
+	<h:panelGrid columns="2">		
+		<h:graphicImage url="/images/pointer.jpg"></h:graphicImage>
+		<h:outputText value="#{msg['user.role.modification']}" styleClass="pagetitle" style="pagetitle"/>
+	</h:panelGrid>
+	<h:outputText value="#{msg['asterisk']}" styleClass="standardTextMandatory"/>
+	<h:outputText styleClass="standardTextMandatory" value="#{msg['instruction']}"/>
+	<f:verbatim><br/></f:verbatim>
+	<h:outputText value="#{msg['user.role']}" styleClass="sectionHeader" />	
+	<h:panelGrid columns="2" styleClass="panelGrid" columnClasses="labelColumn, inputColumn">
+		
+		<h:outputLabel for="userRoleName" value="#{msg['user.role.name']}" />
+		<h:outputText value="#{userRoleEditBean.userRole.roleName}"/>
+		
+		<h:inputText id="userRoleName" readonly="true" value="#{userRoleEditBean.userRole.roleName}" />
+
+		<pvs:labelInput id="userRoleName" backingBean="#{userRoleEditBean.userRole.roleName}" 
+		 		backingBeanStr="userRoleEditBean.userRole.roleName" label="User Role Name" required="true"/>  
+		 	
+
+		<h:panelGroup style="valign=top">
+			<h:outputText value="#{msg['asterisk']}" styleClass="standardTextMandatory" ></h:outputText>
+			<h:outputLabel for="userRoleDescription" value="#{msg['user.role.description']}"/>
+		</h:panelGroup>
+		<h:inputTextarea id="userRoleDescription" cols="30" rows="5" required="true" value="#{userRoleEditBean.userRole.roleDescription}" />	
+					
+		<h:outputLabel for="enabled" value="#{msg['enabled']}"/>		
+		<h:selectBooleanCheckbox id="enabled" value="#{userRoleEditBean.userRole.status}" />
+	</h:panelGrid>
+	<br/>
+	
+	<h:outputLabel for="modules" value="#{msg['module']}" styleClass="sectionHeader" />		
+	<h:selectManyCheckbox id="modules" required="true" styleClass="account_content" layout="pageDirection" value="#{userRoleEditBean.userRole.roleActivities}">
+		<f:selectItems value="#{predefinedValueBean.roleActivities4SelectItems}" /> 
+	</h:selectManyCheckbox>
+
+	<br/>
+	<h:commandButton value="Save"  type="submit" action="#{userRoleEditBean.updateUserRoleAction}" title="Save"/>	
+	 
+	<h:commandButton value="Cancel"  type="submit" action="userRoleListBean" title="Cancel" immediate="true"/>
+	</h:form>
+</f:subview>
+</ui:define>
+</ui:decorate>
+</html>

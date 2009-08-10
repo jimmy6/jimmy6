@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+                              "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+<faces-config>
+
+	<managed-bean>
+		<managed-bean-name>applicationMBean</managed-bean-name>
+		<managed-bean-class>com.j6.project.common.jsf.ApplicationMBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>globalEnv</managed-bean-name>
+        <managed-bean-class>com.j6.framework.jsf.managedbean.GlobalEnv</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+  	<component>
+        <component-type>com.j6.framework.user.HtmlInputTextTag</component-type>
+        <component-class>com.j6.framework.user.HtmlInputTextTag</component-class>
+    </component>
+    
+  	<component>
+        <component-type>com.j6.framework.jsf.component.HtmlInputCalendar</component-type>
+        <component-class>com.j6.framework.jsf.component.HtmlInputCalendar</component-class>
+    </component>
+    
+  	<component>
+        <component-type>com.j6.framework.user.HtmlInputTextArea</component-type>
+        <component-class>com.j6.framework.user.HtmlInputTextArea</component-class>
+    </component>
+
+	<lifecycle>
+		<phase-listener>com.j6.framework.user.PhaseTracker</phase-listener>
+		
+	</lifecycle>
+
+	<application>
+		
+		<variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+
+		<action-listener>com.j6.framework.user.ActionListenerImpl</action-listener>
+
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+		
+		<message-bundle>com.j6.project.resources.bizConfig</message-bundle>
+		<message-bundle>resource.bundle.messages</message-bundle><!-- this message must put after bizConfig. if not myfaces cant find the validation message. -->
+
+	</application>
+	
+	<validator>
+		<validator-id>annotation</validator-id>
+		<validator-class>com.j6.framework.user.ModelValidator</validator-class>
+	</validator>
+	
+	<factory />
+	<render-kit>
+    <renderer>
+	    <component-family>
+			javax.faces.Output
+	    </component-family>
+	    <renderer-type>
+			com.j6.framework.jsf.component.HtmlLabelRenderer
+	    </renderer-type>
+	    <renderer-class>
+			com.j6.framework.jsf.component.HtmlLabelRenderer
+	    </renderer-class>    
+    </renderer>
+    <renderer>
+	    <component-family>
+			javax.faces.Input
+	    </component-family>
+	    <renderer-type>
+			com.j6.framework.jsf.component.HtmlTextareaRenderer
+	    </renderer-type>
+	    <renderer-class>
+			com.j6.framework.jsf.component.HtmlTextareaRenderer
+	    </renderer-class>
+    </renderer>
+    
+    </render-kit>
+</faces-config>

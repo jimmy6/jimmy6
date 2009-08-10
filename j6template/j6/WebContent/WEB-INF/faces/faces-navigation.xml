@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+                              "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+<faces-config>
+
+	<!-- ===================================== user Modules====================================== -->
+	<!-- Menu navigation -->
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/pages/secure/home.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>userEditBean</from-outcome>
+			<to-view-id>/pages/user/personal/userEdit.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>loginPasswordEditBean</from-outcome>
+			<to-view-id>/pages/user/personal/loginPasswordEdit.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userListBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userList.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleList.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>loginBean</from-outcome>
+			<to-view-id>/pages/user/login.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+	<!-- End Menu navigation -->
+
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userList.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userRoleList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleAddBean</from-outcome>
+			<to-view-id>/pages/user/admin/userRoleAdd.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/admin/userRoleEdit.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userRoleEdit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userRoleList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userAndUserRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/admin/userAndUserRoleEdit.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userAddBean</from-outcome>
+			<to-view-id>/pages/user/admin/userAdd.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/admin/userRoleAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/admin/userRoleList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- TESTINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG -->
+	<navigation-rule>
+		<from-view-id>/pages/user/testadmin/userRoleAdd.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleListBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleList.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/user/testadmin/userList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userAddBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userAdd.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userAndUserRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userAndUserRoleEdit.jsf</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/user/testadmin/userRoleList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleAddBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleAdd.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleEdit.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/user/testadmin/userRoleList.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>userRoleAddBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleAdd.jsf</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>userRoleEditBean</from-outcome>
+			<to-view-id>/pages/user/testadmin/userRoleEdit.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>
+

@@ -1,0 +1,49 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+      
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="must-revalidate"/>
+<meta http-equiv="Cache-Control" content="no-store"/>
+<meta http-equiv="Cache-Control" content="private"/>
+<meta http-equiv="Cache-Control" content="max-age=0"/>
+<meta http-equiv="Expires" content="-1"/>
+      
+<head>
+    <link href="#{globalEnv.cssPath}/fonts.css" rel="stylesheet" type="text/css"/>
+</head>
+<!--<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"
+      onload="MM_preloadImages('#{globalEnv.imagePath}/menu/hrm_on.jpg','#{globalEnv.imagePath}/menu/finance_on.jpg','#{globalEnv.imagePath}/menu/cms_on.jpg','#{globalEnv.imagePath}/menu/sys_admin_on.jpg','#{globalEnv.imagePath}/menu/audit_trail_on.jpg','#{globalEnv.imagePath}/menu/acess_cont_on.jpg')">-->
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<h:form>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td width="100%" colspan="2">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" background="#{globalEnv.imagePath}/banner/ban_bg.gif">
+                <tr>
+                    <td valign="top"><img src="#{globalEnv.imagePath}/banner/amms_logo.gif" width="187" height="42"/></td>
+                    <td valign="middle">
+                        <div align="right"><span class="text2">Login : </span><span class="title2">#{loginBean.username} </span>
+                           <h:commandButton styleClass="button" value="Logout"  action="#{loginBean.logout}" />
+                        </div>
+                
+                    </td>
+                    <td width="326" align="right"><img src="#{globalEnv.imagePath}/banner/ban_img1.gif" width="326" height="42"/>
+                    </td>
+                    <td width="224" align="right"><img src="#{globalEnv.imagePath}/banner/ban_img2.gif" width="240" height="42"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</h:form>
+</body>
+</html>

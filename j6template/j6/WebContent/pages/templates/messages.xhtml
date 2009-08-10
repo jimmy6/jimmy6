@@ -1,0 +1,67 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://myfaces.apache.org/sandbox" 
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:authz="http://sourceforge.net/projects/jsf-comp/acegijsf"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax">
+	
+<style >
+
+	.messageColumn {
+		width: 100%;
+	}
+
+</style>
+
+<t:stylesheet path="/css/messages.css" />
+<div id="divMessages">
+
+<a4j:outputPanel ajaxRendered="true">
+	<t:messages globalOnly="false" replaceIdWithLabel="true" showDetail="true" showSummary="true"/>
+</a4j:outputPanel>	
+ 
+<t:panelGroup forceId="true" id="messages">
+	<c:if test="${not empty errors}">
+		<h:panelGroup >
+			<div class="error" id="errorMessages" ondblclick="document.getElementById('errorMessages').style.display = 'none'">
+				<c:forEach var="error" items="${errors}" varStatus="rowCounter">
+					
+					<h:panelGrid columns="3" columnClasses=",messageColumn,">
+						<t:graphicImage url="/images/common/iconWarning.gif" alt="Warning"
+							styleClass="icon" />
+						<h:outputText value="${error}" styleClass="errorMessage" />
+						<t:graphicImage url="/images/icons/close2.png" alt="Close" 
+							style="cursor: pointer;"
+							styleClass="icon" rendered="#{rowCounter.index == 0}"
+							onclick="document.getElementById('errorMessages').style.display = 'none'"/>
+					</h:panelGrid>
+					
+					</c:forEach>
+				</div>
+		</h:panelGroup>
+	</c:if>
+
+	<!-- Information Messages -->
+	<c:if test="${not empty messages}">
+		<div class="message" id="successMessages" ondblclick="document.getElementById('successMessages').style.display = 'none'" >
+			<c:forEach var="msg" items="${messages}" varStatus="rowCounter">
+				
+				<h:panelGrid columns="3"  columnClasses=",messageColumn," >
+					<t:graphicImage url="/images/common/iconInformation.gif"
+						alt="Information" styleClass="icon" />
+					<h:outputText value="${msg}" />
+					<t:graphicImage url="/images/icons/close2.png" alt="Close" styleClass="icon" 
+						style="cursor: pointer;"
+						rendered="#{rowCounter.index == 0}" onclick="document.getElementById('successMessages').style.display = 'none'" />
+				</h:panelGrid>
+			</c:forEach>
+		</div>
+	</c:if>
+</t:panelGroup>
+</div>
+
+</html>

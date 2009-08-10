@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:pvs="http://www.j6.com/component">
+
+<ui:composition>
+            
+	<c:if test="${empty required}">
+		<c:set var="required" value="false" />
+	</c:if>
+	<c:if test="${empty rows}">
+		<c:set var="rows" value="6" />
+	</c:if>
+	<c:if test="${empty cols}">
+		<c:set var="cols" value="40" />
+	</c:if>
+	<c:if test="${empty rendered}">
+		<c:set var="rendered" value="true" />
+	</c:if>
+	<c:if test="${empty displayValueOnly}">
+		<c:set var="displayValueOnly" value="false" />
+	</c:if>
+	
+	<c:if test="${not empty label}">
+		<h:panelGroup rendered="#{rendered}">
+			<pvs:outputLabel for="#{id}" value="#{label}" id="#{id}Label"
+				forceId="true" rendered="#{rendered}" />
+		</h:panelGroup>
+		<h:outputText value=":" rendered="#{rendered}" />
+	</c:if>
+
+	<h:panelGroup id="#{id}InputGroup" style="witdh:100%" rendered="#{rendered}">
+		<!-- render input component -->
+	
+		<c:if test="${ (input =='date' || input =='dateTime') &amp;&amp; not empty backingBeanStr}" >
+		
+			<h:panelGroup>
+				<pvs:inputCalendar id="#{id}" forceId="true" 
+					monthYearRowClass="yearMonthHeader" weekRowClass="weekHeader"
+					currentDayCellClass="currentDayCell" value="#{backingBean}"
+					renderAsPopup="true" renderPopupButtonAsImage="true" 
+					popupDateFormat="${(input =='date')? bizCfg['dateFormat'] : (input=='dateTime')? bizCfg['dateTimeFormat'] :''}"
+					required="#{required}" styleClass="text"
+					onfocus="this.style.margin = '0'; this.style.borderWidth = '2px'; this.style.backgroundColor = '#FFFFFF'; #{ (empty backingBeanStr) ? ' blur(); ':'' }  "
+					style=" #{ (empty backingBeanStr) ? 'border-width: 1px ; border:1px solid #3664A1; border-top-width: 0;border-left-width: 0;background-color: white; ' : 'margin: 10;border-width: 1px; margin: 1px; background-image:url(/j6/images/common/input_white2.gif); border:1px solid #3664A1' };  ">
+
+					<a4j:support reRender="#{id}DivMsg" event="onblur" 
+						onsubmit=" this.style.borderWidth= '1px' ; this.style.border='1px solid #3664A1'; this.style.borderTopWidth= '0';this.style.borderLeftWidth= '0';this.style.backgroundColor= 'white';#{ (empty backingBeanStr) ? 'return false': ''}" 
+						ajaxSingle="true" ignoreDupResponses="true" bypassUpdates="true" />
+
+				</pvs:inputCalendar>
+			</h:panelGroup>
+		</c:if>
+
+		<c:if test="${input =='textArea'}">
+			<h:panelGroup>
+				<pvs:inputTextarea forceId="true" id="#{id}" value="${backingBean}"
+					required="#{required}" cols="#{cols}" rows="#{rows}" styleClass="text"
+					onblur="this.style.borderWidth= '1px' ; this.style.border='1px solid #3664A1'; this.style.borderTopWidth= '0';this.style.borderLeftWidth= '0';this.style.backgroundColor= 'white';#{ (empty backingBeanStr) ? 'return false': ''}" 
+					onfocus="this.style.margin = '0'; this.style.borderWidth = '2px'; this.style.backgroundColor = '#FFFFFF'; #{ (empty backingBeanStr) ? ' blur(); ':'' }  "
+					style="#{ (empty backingBeanStr) ? 'border-width: 1px ; border:1px solid #3664A1; border-top-width: 0;border-left-width: 0;background-color: white; ' : 'margin: 10;border-width: 1px; margin: 1px; background-image:url( /j6/images/common/input_white_large.gif); border:1px solid #3664A1' };  ">
+					
+					<c:if test="${ (not empty backingBeanStr) }">
+						<f:attribute name="labelInput" value="${backingBeanStr}" />
+						<f:validator validatorId="annotation" />
+					</c:if>
+					
+					<a4j:support reRender="#{id}DivMsg" event="onchange" 
+						onsubmit="#{ (empty backingBeanStr) ? 'return false': ''}" 
+						ajaxSingle="true" ignoreDupResponses="true" bypassUpdates="true" />
+					
+				</pvs:inputTextarea>
+			</h:panelGroup>
+		</c:if>
+
+		<c:if test="${input =='selectOneMenu'}">
+			<t:selectOneMenu id="#{id}" forceId="true" value="${backingBean}" displayValueOnly="#{displayValueOnly}"
+				styleClass="text" required="#{required}" displayValueOnlyStyle="border-width: 1px ; border:1px solid #3664A1; border-top-width: 0;border-left-width: 0;background-color: white; " 
+				onfocus=" this.style.borderWidth = '2px'; " onchange="#{onchange}"
+				style=" background-image:url(/j6/images/common/input_white_large.gif); border:1px solid #3664A1;padding: 3px 5px">
+				<f:selectItems value="#{selectItems}" />
+				<c:if test="${not empty backingBeanStr}">
+					<f:attribute name="labelInput" value="${backingBeanStr}" />
+					<f:validator validatorId="annotation" />
+				</c:if>
+				<!-- selectonemenu no ajax validation because selectitems need to restore inorder to take value -->
+				<c:if test="${not empty actionListener }" >
+					<a4j:support reRender="#{id}DivMsg,#{reRender}" event="onchange" actionListener="#{managedBean[actionListener]}" ignoreDupResponses="true" 
+						limitToList="false" bypassUpdates="false" ajaxSingle="true" /> 
+				</c:if>
+				
+			</t:selectOneMenu>
+		</c:if>
+
+		<c:if test="${empty input || ((input =='date' || input =='dateTime') &amp;&amp; empty backingBeanStr ) }">
+			<pvs:inputText forceId="true" id="#{id}" value="${backingBean}" displayValueOnly="#{displayValueOnly}"
+				onkeyup="#{onkeyup}" required="#{required}" styleClass="text "
+				onblur="this.style.borderWidth= '1px' ; this.style.border='1px solid #3664A1'; this.style.borderTopWidth= '0';this.style.borderLeftWidth= '0';this.style.backgroundColor= 'white';#{ (empty backingBeanStr) ? 'return false': ''}" 
+				rendered="#{rendered}" displayValueOnlyStyle="border-width: 1px ; border:1px solid #3664A1; border-top-width: 0;border-left-width: 0;background-color: white; " 
+				onfocus="this.style.margin = '0'; this.style.borderWidth = '2px'; this.style.backgroundColor = '#FFFFFF'; #{ (empty backingBeanStr) ? ' blur(); ':'' }  "
+				style="#{ (empty backingBeanStr) ? 'border-width: 1px ; border:1px solid #3664A1; border-top-width: 0;border-left-width: 0;background-color: white; ' : 'margin: 10;border-width: 1px; margin: 1px; background-image:url(/j6/images/common/input_white2.gif); border:1px solid #3664A1' };  ">
+
+				<c:if test="${not empty backingBeanStr}">
+					<f:attribute name="labelInput" value="${backingBeanStr}" />
+					<f:validator validatorId="annotation" />
+				</c:if>
+				
+				<c:if test="${ input =='date' }">
+					<s:convertDateTime pattern="#{bizCfg['dateFormat']}"/>
+				</c:if>
+				<c:if test="${ input =='dateTime' }">
+					<s:convertDateTime pattern="#{bizCfg['dateTimeFormat']}"/>
+				</c:if>
+
+        		<c:if test="${(empty actionListener) &amp;&amp; (empty managedBean)}">
+					<a4j:support reRender="#{id}DivMsg" event="onchange" ajaxSingle="true" 
+						ignoreDupResponses="true" limitToList="true" bypassUpdates="true"
+						onsubmit="this.style.borderWidth= '1px' ; this.style.border='1px solid #3664A1'; this.style.borderTopWidth= '0';this.style.borderLeftWidth= '0';this.style.backgroundColor= 'white';#{ (empty backingBeanStr) ? 'return false': ''}" />
+					
+				</c:if>						
+				<c:if test="${  not (empty lookup) &amp;&amp; not (empty actionListener) &amp;&amp; not (empty managedBean)}">
+					
+					<a4j:support reRender="#{id}DivMsg, #{reRender}" event="onchange" ajaxSingle="true" actionListener="#{managedBean[actionListener]}"
+						ignoreDupResponses="true" limitToList="false" bypassUpdates="#{empty lookup}" oncomplete="#{ (empty loading) ? '': 'hideLoading()'}"
+						onsubmit=" this.style.borderWidth= '1px' ; this.style.border='1px solid #3664A1'; this.style.borderTopWidth= '0';this.style.borderLeftWidth= '0';this.style.backgroundColor= 'white';#{ (empty loading) ? '': 'showLoading()'} ;#{ (empty backingBeanStr) ? 'return false': ''}" >
+
+					</a4j:support>
+				</c:if>
+				<ui:insert />
+			</pvs:inputText>
+		</c:if>
+
+		<c:if test="#{input== 'selectManyCheckbox'}">
+			<t:selectManyCheckbox forceId="true" id="#{id}"
+				value="${backingBean}" onkeyup="#{onkeyup}" required="#{required}"
+				styleClass="text required" 
+				onfocus="#{ (empty backingBeanStr) ? ' blur(); ':'' } this.style.margin = '0'; this.style.borderWidth = '2px'; this.style.backgroundColor = '#FFFFFF'; "
+				style="border-width: 1px; margin: 1px; background-color: rgb(233, 240, 245); border:1px solid #3664A1">
+				<f:selectItems value="#{selectItems}" />
+				<c:if test="${not empty backingBeanStr}">
+					<f:attribute name="labelInput" value="${backingBeanStr}" />
+					<f:validator validatorId="annotation" />
+				</c:if>
+
+				<a4j:support reRender="#{id}DivMsg" event="onblur" ajaxSingle="true"
+					ignoreDupResponses="true" bypassUpdates="true"
+					onsubmit="this.style.margin = '1px'; this.style.borderWidth = '1px'; this.style.backgroundColor = '#E9F0F5';" />
+			</t:selectManyCheckbox>
+		</c:if>
+         
+        <c:if test="${not empty lookup &amp;&amp; not displayValueOnly}" >
+			<t:commandButton forceId="true" id="#{id}LookupIcon" style="cursor: pointer;" image="/images/icons/lookup.gif"
+				onclick="#{lookupOnclick};Richfaces.showModalPanel('#{lookup}Lookup',{left: '120', top: 'auto'}); return false;" />
+		</c:if>
+
+		<a4j:outputPanel id="#{id}DivMsg">
+			<h:message id="#{id}Msg" for="#{id}" errorClass="error"
+				fatalClass="error" rendered="#{rendered}" />
+		</a4j:outputPanel>
+		<h:panelGroup>
+			<!-- Reset -->
+			<c:set var="required" value="false" />
+			<c:set var="backingBeanStr" value="" />
+			<c:set var="onkeyup" value="" />
+			<c:set var="managedBean" value="" />
+			<c:set var="actionListener" value="" />
+		</h:panelGroup>
+	</h:panelGroup>
+</ui:composition>
+
+</html>

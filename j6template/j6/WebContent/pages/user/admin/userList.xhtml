@@ -1,0 +1,153 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://myfaces.apache.org/sandbox"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:decorate template="/pages/templates/bodyFrame.xhtml">
+	<ui:define name="content">
+		<script type="text/javascript">
+/* <![CDATA[ */
+
+	function clearAll(){
+		document.getElementById("content:form1:userID").value ="";
+		document.getElementById("content:form1:name").value ="";
+	}
+	
+/* ]]> */
+</script>
+		<h:form id="form1">
+			<h:panelGrid columns="2">
+				<h:graphicImage url="/images/pointer.jpg"></h:graphicImage>
+				<h:outputText value="#{msg['user.profile.listing']}"
+					styleClass="pagetitle" style="pagetitle" />
+			</h:panelGrid>
+			<h:outputText value="#{msg['search.criteria']}"
+				styleClass="sectionHeader" />
+			<BR />
+
+			<h:panelGrid columns="2" styleClass="panelGrid"
+				columnClasses="labelColumn, inputColumn">
+
+				<h:outputLabel for="userID" value="#{msg['user.id']}" />
+				<h:inputText id="userID" value="#{userListBeanTest.user.username}" />
+
+				<h:outputLabel for="name" value="#{msg['name']}" />
+				<h:inputText id="name" value="#{userListBeanTest.user.name}" />
+			</h:panelGrid>
+			<BR />
+			<BR />
+
+
+			<t:commandButton value="#{msg['search']}" title="#{msg['search']}"
+				action="#{userListBeanTest.searchUser}" />
+			<f:verbatim>
+			</f:verbatim>
+			<t:commandButton value="#{msg['clear']}" type="button"
+				title="#{msg['clear']}" onclick="clearAll()" />
+
+			<br />
+			<br />
+			<h:outputText value="#{msg['search.result']}"
+				styleClass="sectionHeader" />
+			<t:dataTable id="data" var="userDModel" rows="5"
+				binding="#{userListBeanTest.htmlDataTable}"
+				columnClasses="tableColumn, tableColumn, tableColumn, tableColumn, tableColumn"
+				headerClass="standardTableHeader" styleClass="standardTable"
+				rowIndexVar="rowIndex" footerClass="tableFooter"
+				rowClasses="tableRow" cellpadding="0" cellspacing="1">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['user.id']}" />
+					</f:facet>
+					<h:commandLink action="#{userListBeanTest.editUserAction}"
+						actionListener="#{userListBeanTest.editUserActListener}">
+						<h:outputText value="#{userDModel.username}" />
+					</h:commandLink>
+					<f:param id="username" value="#{userDModel.username}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['name']}" />
+					</f:facet>
+					<t:outputText value="#{userDModel.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['email']}" />
+					</f:facet>
+					<h:outputText value="#{userDModel.email}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['enabled']}" />
+					</f:facet>
+					<h:outputText value="#{userDModel.enabled}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg['password']}" />
+					</f:facet>
+					<h:commandLink value="#{msg['reset']}" type="submit"
+						action="#{userListBeanTest.resetPassword}" title="#{msg['reset']}"
+						immediate="true" />
+				</h:column>
+			</t:dataTable>
+
+			<h:outputText value="#{msg['no.records']}" styleClass="emptyRow"
+				rendered="#{empty userListBeanTest.tableModel.results}" />
+
+			<h:panelGrid columns="2"
+				columnClasses="dataScrollerLeft, dataScrollerRight">
+				<t:dataScroller id="scroll_top" for="data"
+					firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex"
+					rowsCountVar="rowsCount">
+
+					<h:outputFormat value="#{msg['table.viewing']}">
+						<f:param value="#{firstRowIndex}" />
+						<f:param value="#{lastRowIndex}" />
+						<f:param value="#{rowsCount}" />
+					</h:outputFormat>
+				</t:dataScroller>
+
+				<t:dataScroller id="scroll_bottom"
+					binding="#{userListBeanTest.htmlDataScroller}" for="data"
+					fastStep="10" pageCountVar="pageCount" pageIndexVar="pageIndex"
+					styleClass="scroller" paginator="true" paginatorMaxPages="9"
+					paginatorTableClass="paginator"
+					paginatorActiveColumnStyle="font-weight:bold;">
+					<f:facet name="first">
+						<h:graphicImage url="/images/arrow-first.gif" />
+					</f:facet>
+					<f:facet name="last">
+						<h:graphicImage url="/images/arrow-last.gif" />
+					</f:facet>
+					<f:facet name="previous">
+						<h:graphicImage url="/images/arrow-previous.gif" />
+					</f:facet>
+					<f:facet name="next">
+						<h:graphicImage url="/images/arrow-next.gif" />
+					</f:facet>
+					<f:facet name="fastforward">
+						<h:graphicImage url="/images/arrow-ff.gif" />
+					</f:facet>
+					<f:facet name="fastrewind">
+						<h:graphicImage url="/images/arrow-fr.gif" />
+					</f:facet>
+				</t:dataScroller>
+			</h:panelGrid>
+
+			<h:commandButton value="#{msg['add']}" type="submit"
+				action="userAddBean" title="#{msg['add']}" immediate="true" />
+
+		</h:form>
+
+	</ui:define>
+</ui:decorate>
+</html>
